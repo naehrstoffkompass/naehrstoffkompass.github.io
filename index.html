@@ -82,7 +82,6 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     }
 
-    /* KATEGORIE-KARTEN (GRUPPEN) */
     .groups-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -130,7 +129,6 @@
       display: inline-block;
     }
 
-    /* KOMPAKTE NÄHRSTOFF KARTE */
     .nutrient-card {
       background: var(--card-bg);
       border-radius: 14px;
@@ -174,7 +172,6 @@
       gap: 5px;
     }
 
-    /* AUSKLAPPBARE DETAILS */
     .details-content {
       display: none;
       margin-top: 15px;
@@ -265,6 +262,9 @@
     <p>Hinweis: Die Inhalte dienen der allgemeinen Information und ersetzen keine ärztliche oder pharmazeutische Beratung. Dosierungen und Verträglichkeit können individuell abweichen.</p>
   </footer>
 
+  <!-- Laden der Nährstoff-Daten aus der zweiten Datei -->
+  <script src="nutrients.js"></script>
+  
   <script>
     const categoriesData = [
       { name: "Makronährstoffe & Aminosäuren", count: "11 Stoffe", key: "Makronährstoffe" },
@@ -276,179 +276,8 @@
       { name: "Darm & Verdauung", count: "3 Stoffe", key: "Darmgesundheit" }
     ];
 
-    const nutrientsData = [
-      // --- MAKRONÄHRSTOFFE & AMINOSÄUREN ---
-      {
-        id: "protein",
-        name: "Protein (Eiweiß)",
-        category: "Makronährstoffe",
-        funktion: "Hauptbaustein für Muskeln, Gewebe, Enzyme, Hormone und Immunsystem.",
-        mangel: "Muskelabbau, Wundheilungsstörungen, geschwächtes Immunsystem.",
-        tagesbedarf: "Ca. 0,8 g bis 2,0 g pro kg Körpergewicht.",
-        quellen: "Hähnchenbrust, Rindfleisch, Magerquark, Eier, Linsen, Sojabohnen, Mandeln."
-      },
-      {
-        id: "kohlenhydrate",
-        name: "Komplexe Kohlenhydrate",
-        category: "Makronährstoffe",
-        funktion: "Hauptenergieträger für Muskeln und Gehirn.",
-        mangel: "Leistungsabfall, Müdigkeit, Konzentrationsschwäche.",
-        tagesbedarf: "Ca. 45–55 % der täglichen Kalorienmenge.",
-        quellen: "Haferflocken, Vollkornbrot, Kartoffeln, Quinoa, brauner Reis."
-      },
-      {
-        id: "ballaststoffe",
-        name: "Ballaststoffe",
-        category: "Makronährstoffe",
-        funktion: "Fördern eine gesunde Verdauung, Sättigung und gesunde Darmbakterien.",
-        mangel: "Verstopfung, träge Verdauung, Blutzuckerschwankungen.",
-        tagesbedarf: "Mindestens 30 g pro Tag (DGE).",
-        quellen: "Leinsamen, Flohsamenschalen, Vollkornprodukte, Bohnen, Brokkoli."
-      },
-      {
-        id: "carnitin",
-        name: "L-Carnitin",
-        category: "Makronährstoffe",
-        funktion: "Transportiert Fettsäuren in die Muskelzellen zur Fettverbrennung.",
-        mangel: "Muskelschwäche, schnelle Erschöpfung.",
-        tagesbedarf: "Körpereigene Synthese; Aufnahme über Nahrung.",
-        quellen: "Rindfleisch, Lammfleisch, Wild, Dorsch."
-      },
-      {
-        id: "glutamin",
-        name: "L-Glutamin",
-        category: "Makronährstoffe",
-        funktion: "Haupttreibstoff für Magen-Darm-Zellen und Immunsystem.",
-        mangel: "Darmprobleme, verlangsamte Regeneration.",
-        tagesbedarf: "Erhöhter Bedarf bei intensivem Sport und Stress.",
-        quellen: "Magerquark, Eier, Sojabohnen, Rindfleisch."
-      },
-      {
-        id: "arginin",
-        name: "L-Arginin",
-        category: "Makronährstoffe",
-        funktion: "Fördert die Gefäßerweiterung, Durchblutung und Nährstoffversorgung.",
-        mangel: "Durchblutungsstörungen, hoher Blutdruck.",
-        tagesbedarf: "Ca. 2–5 g bei sportlicher Belastung.",
-        quellen: "Kürbiskerne, Erdnüsse, Hähnchenbrust, Walnüsse."
-      },
-
-      // --- VITAMINE ---
-      {
-        id: "vitamin-a",
-        name: "Vitamin A (Retinol)",
-        category: "Vitamine",
-        funktion: "Unterstützt Sehkraft, Immunsystem, Zellwachstum sowie Haut.",
-        mangel: "Nachtblindheit, trockene Haut, erhöhte Infektanfälligkeit.",
-        tagesbedarf: "Ca. 700–850 µg RAE pro Tag.",
-        quellen: "Rinderleber, Karotten (Beta-Carotin), Süßkartoffeln, Spinat, Eigelb."
-      },
-      {
-        id: "vitamin-b12",
-        name: "Vitamin B12 (Cobalamin)",
-        category: "Vitamine",
-        funktion: "Essenziell für Blutbildung, Nervensystem und DNA-Synthese.",
-        mangel: "Müdigkeit, Kribbeln in Händen/Füßen, Anämie.",
-        tagesbedarf: "Ca. 4,0 µg pro Tag.",
-        quellen: "Rindfleisch, Lachs, Eier, Käse (für Veganer als Supplement)."
-      },
-      {
-        id: "vitamin-c",
-        name: "Vitamin C (Ascorbinsäure)",
-        category: "Vitamine",
-        funktion: "Starkes Antioxidans, stärkt Immunsystem und Kollagensynthese.",
-        mangel: "Infektanfälligkeit, Zahnfleischbluten, langsame Wundheilung.",
-        tagesbedarf: "Ca. 95–110 mg pro Tag.",
-        quellen: "Rote Paprika, schwarze Johannisbeeren, Zitrusfrüchte, Brokkoli."
-      },
-      {
-        id: "vitamin-d3",
-        name: "Vitamin D3 (Cholecalciferol)",
-        category: "Vitamine",
-        funktion: "Reguliert Kalziumaufnahme, Knochendichte, Muskeln und Immunsystem.",
-        mangel: "Knochenerweichung, erhöhte Infektanfälligkeit, Muskelschwäche.",
-        tagesbedarf: "Ca. 20 µg (800 IE) bei fehlender Sonnenbestrahlung.",
-        quellen: "Sonnenlicht (UVB), Lachs, Makrele, Eigelb."
-      },
-      {
-        id: "vitamin-k2",
-        name: "Vitamin K2 (Menachinon)",
-        category: "Vitamine",
-        funktion: "Steuert die Verwertung von Kalzium in Knochen und schützt Gefäße.",
-        mangel: "Erhöhte Blutungsneigung, geschwächte Knochen.",
-        tagesbedarf: "Ca. 60–80 µg pro Tag.",
-        quellen: "Fermentierte Speisen (Natto), Hartkäse, Eigelb, Butter."
-      },
-
-      // --- MINERALSTOFFE ---
-      {
-        id: "magnesium",
-        name: "Magnesium",
-        category: "Mineralstoffe",
-        funktion: "Cofaktor für >300 Enzymreaktionen, Muskel- und Nervenfunktion.",
-        mangel: "Muskelkrämpfe, Innere Unruhe, Kopfschmerzen.",
-        tagesbedarf: "Ca. 300–400 mg pro Tag.",
-        quellen: "Kürbiskerne, Mandeln, Zartbitterschokolade, Haferflocken, Bohnen."
-      },
-      {
-        id: "zink",
-        name: "Zink",
-        category: "Mineralstoffe",
-        funktion: "Unerlässlich für Immunsystem, Wundheilung, Haut und Testosteronspiegel.",
-        mangel: "Infektanfälligkeit, Haarausfall, brüchige Nägel.",
-        tagesbedarf: "Ca. 8–14 mg pro Tag.",
-        quellen: "Austern, Rindfleisch, Kürbiskerne, Linsen, Eier."
-      },
-      {
-        id: "eisen",
-        name: "Eisen",
-        category: "Mineralstoffe",
-        funktion: "Sauerstofftransport im Blut und zelluläre Energiegewinnung.",
-        mangel: "Blässe, ständige Müdigkeit, Atemnot bei Belastung.",
-        tagesbedarf: "Ca. 10–15 mg pro Tag.",
-        quellen: "Rotes Fleisch, Linsen, Kürbiskerne, Sesam, Spinat."
-      },
-
-      // --- FETTSÄUREN ---
-      {
-        id: "omega-3-epa",
-        name: "Omega-3 (EPA & DHA)",
-        category: "Fettsäuren",
-        funktion: "Schützt Herz-Kreislauf-System, Gehirnfunktion und hemmt Entzündungen.",
-        mangel: "Trockene Augen, Konzentrationsschwäche, hohe Entzündungswerte.",
-        tagesbedarf: "Mind. 250–500 mg EPA/DHA täglich.",
-        quellen: "Lachs, Makrele, Hering, Algenöl-Kapseln."
-      },
-
-      // --- PERFORMANCE ---
-      {
-        id: "kreatin",
-        name: "Kreatin-Monohydrat",
-        category: "Performance",
-        funktion: "Steigert die Schnellkraft und Muskelenergie bei intensiven Workouts.",
-        mangel: "Schnellere Ermüdung bei Kraftanstrengung.",
-        tagesbedarf: "3–5 g täglich für volle Wirkung.",
-        quellen: "Rindfleisch, Schweinefleisch, Hering, Lachs."
-      },
-
-      // --- DARMGESUNDHEIT ---
-      {
-        id: "inulin",
-        name: "Inulin (Präbiotikum)",
-        category: "Darmgesundheit",
-        funktion: "Nahrung für nützliche Darmbakterien, unterstützt eine gesunde Darmflora.",
-        mangel: "Träge Verdauung, verringerte Mikrobiom-Vielfalt.",
-        tagesbedarf: "Teil der empfohlenen 30 g Ballaststoffe.",
-        quellen: "Zichorienwurzel, Topinambur, Knoblauch, Zwiebeln."
-      }
-    ];
-
-    let currentCategoryKey = null;
-
     function showHome() {
-      currentCategoryKey = null;
       document.getElementById("searchInput").value = "";
-      location.hash = "";
       const container = document.getElementById("contentView");
       container.innerHTML = `
         <h2 class="hero-title">Sieben Bereiche. Klare Orientierung.</h2>
@@ -466,8 +295,6 @@
     }
 
     function openCategory(categoryKey) {
-      currentCategoryKey = categoryKey;
-      location.hash = "category/" + encodeURIComponent(categoryKey);
       const filtered = nutrientsData.filter(item => item.category === categoryKey);
       renderNutrientCards(filtered, true);
     }
@@ -475,20 +302,12 @@
     function toggleDetails(id) {
       const detailsEl = document.getElementById(`details-${id}`);
       const btnEl = document.getElementById(`btn-${id}`);
-      const isOpen = detailsEl.classList.contains("open");
-
-      if (isOpen) {
+      if (detailsEl.classList.contains("open")) {
         detailsEl.classList.remove("open");
         btnEl.innerHTML = "▼ Details & Quellen anzeigen";
-        if (currentCategoryKey) {
-          location.hash = "category/" + encodeURIComponent(currentCategoryKey);
-        } else {
-          location.hash = "";
-        }
       } else {
         detailsEl.classList.add("open");
         btnEl.innerHTML = "▲ Details ausblenden";
-        location.hash = "item/" + encodeURIComponent(id);
       }
     }
 
@@ -547,74 +366,20 @@
     }
 
     function handleSearch() {
-      const searchTerm = document.getElementById("searchInput").value.trim();
-      const normalized = searchTerm.toLowerCase();
-
-      if (!normalized) {
+      const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+      if (!searchTerm) {
         showHome();
         return;
       }
-
-      location.hash = "search/" + encodeURIComponent(searchTerm);
       const filtered = nutrientsData.filter(item => 
-        item.name.toLowerCase().includes(normalized) || 
-        item.funktion.toLowerCase().includes(normalized) ||
-        item.category.toLowerCase().includes(normalized)
+        item.name.toLowerCase().includes(searchTerm) || 
+        item.funktion.toLowerCase().includes(searchTerm) ||
+        item.category.toLowerCase().includes(searchTerm)
       );
       renderNutrientCards(filtered, true);
     }
 
-    function handleHash() {
-      const raw = location.hash.slice(1);
-      if (!raw) {
-        showHome();
-        return;
-      }
-
-      const [kind, encoded] = raw.split("/");
-      const value = encoded ? decodeURIComponent(encoded) : "";
-
-      if (kind === "category" && value) {
-        const categoryKey = value;
-        currentCategoryKey = categoryKey;
-        const filtered = nutrientsData.filter(item => item.category === categoryKey);
-        renderNutrientCards(filtered, true);
-        return;
-      }
-
-      if (kind === "item" && value) {
-        const item = nutrientsData.find(entry => entry.id === value);
-        if (item) {
-          currentCategoryKey = item.category;
-          renderNutrientCards([item], true);
-          setTimeout(() => {
-            const btn = document.getElementById(`btn-${item.id}`);
-            const details = document.getElementById(`details-${item.id}`);
-            if (btn && details && !details.classList.contains("open")) {
-              btn.click();
-            }
-          }, 20);
-          return;
-        }
-      }
-
-      if (kind === "search" && value) {
-        const query = decodeURIComponent(value);
-        document.getElementById("searchInput").value = query;
-        const filtered = nutrientsData.filter(item => 
-          item.name.toLowerCase().includes(query.toLowerCase()) ||
-          item.funktion.toLowerCase().includes(query.toLowerCase()) ||
-          item.category.toLowerCase().includes(query.toLowerCase())
-        );
-        renderNutrientCards(filtered, true);
-        return;
-      }
-
-      showHome();
-    }
-
-    window.addEventListener("hashchange", handleHash);
-    handleHash();
+    showHome();
   </script>
 </body>
 </html>
