@@ -1,702 +1,269 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nährstoffkompass – Premium-Nährstoff-Guide</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="bzORKeQCsdx1Ne-ViLYoXS_h1J7OricsB78XPiz3BD4">
+  <title>Nährstoffkompass – Orientierung zu Nährstoffen & Wirkungen</title>
   <style>
     :root {
-      --bg: #f5f1e8;
-      --bg-2: #edf6ef;
-      --panel: rgba(255,255,255,0.78);
-      --panel-strong: #ffffff;
-      --card: #ffffff;
-      --text: #173629;
-      --muted: #56695d;
-      --line: #e7e2d8;
-      --green: #1b5e3f;
-      --green-2: #266f49;
-      --green-3: #ebf7ef;
-      --gold: #d49a43;
-      --gold-soft: #fdf2dd;
-      --shadow: 0 18px 40px rgba(18, 42, 31, 0.08);
-      --radius: 22px;
+      --bg-color: #f7f5f0;
+      --card-bg: #ffffff;
+      --primary: #1b3b2b;
+      --primary-light: #e8efe9;
+      --text-main: #2c3531;
+      --text-muted: #5c6862;
+      --border: #e0e6e2;
+      --accent: #2e6f40;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: Inter, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(32,101,70,0.08), transparent 28%),
-        linear-gradient(180deg, #f9f7f2 0%, var(--bg) 100%);
-      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       line-height: 1.6;
+      padding-bottom: 60px;
     }
 
-    a { color: inherit; }
-    button, input { font: inherit; }
-
-    .page-shell {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 18px 88px;
-    }
-
-    .topbar {
-      background: linear-gradient(135deg, #123c2d 0%, #1e5640 55%, #2d6b4d 100%);
-      color: white;
-      box-shadow: 0 12px 28px rgba(10, 31, 24, 0.14);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .topbar-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 18px 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.14);
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
-    }
-
-    .brand-text {
-      line-height: 1.1;
-    }
-
-    .brand-text strong {
-      display: block;
-      font-size: 1.1rem;
-      letter-spacing: 0.02em;
-    }
-
-    .brand-text span {
-      font-size: 0.72rem;
-      opacity: 0.8;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .navs {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .nav-btn {
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.08);
-      color: white;
-      border-radius: 999px;
-      padding: 9px 16px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-1px);
-    }
-
-    .hero {
-      margin-top: 28px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.80), rgba(248,251,247,0.86));
-      border: 1px solid rgba(17, 46, 35, 0.06);
-      border-radius: calc(var(--radius) + 12px);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero-inner {
-      padding: 40px 30px 24px;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 30px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: var(--green-3);
-      color: var(--green);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border: 1px solid rgba(27,94,63,0.08);
-    }
-
-    h1 {
-      font-size: clamp(2rem, 3vw, 3.4rem);
-      line-height: 1.08;
-      margin: 18px 0 12px;
-      letter-spacing: -0.05em;
-    }
-
-    .hero-copy p {
-      margin: 0;
-      max-width: 680px;
-      color: var(--muted);
-      font-size: 1.06rem;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-      flex-wrap: wrap;
-    }
-
-    .primary-btn, .secondary-btn {
-      border-radius: 14px;
-      padding: 13px 20px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      border: none;
-    }
-
-    .primary-btn {
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-2) 100%);
-      color: #fff;
-      box-shadow: 0 12px 24px rgba(28, 86, 61, 0.2);
-    }
-
-    .secondary-btn {
-      background: rgba(209, 250, 221, 0.55);
-      color: var(--green);
-      border: 1px solid rgba(27,94,63,0.08);
-    }
-
-    .primary-btn:hover, .secondary-btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(120px, 1fr));
-      gap: 14px;
-      margin-top: 30px;
-    }
-
-    .stat {
-      background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(17, 46, 35, 0.06);
-      border-radius: 18px;
-      padding: 16px 12px;
+    header {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 30px 20px;
       text-align: center;
     }
+    header h1 { font-size: 1.8rem; margin-bottom: 8px; font-weight: 700; }
+    header p { font-size: 0.95rem; opacity: 0.9; }
 
-    .stat strong {
-      font-size: 1.2rem;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.78rem;
-    }
-
-    .hero-art {
+    nav {
       display: flex;
       justify-content: center;
-      align-items: center;
-      min-height: 300px;
+      gap: 12px;
+      margin-top: 15px;
+    }
+    nav button {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
     }
 
-    .art-card {
-      width: min(100%, 400px);
-      min-height: 280px;
-      border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(230,248,235,0.9), rgba(245,250,246,0.9)),
-        linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.55));
-      border: 1px solid rgba(17,46,35,0.06);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 15px;
     }
 
-    .art-card::before {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border-radius: 24px;
-      border: 1px solid rgba(32, 94, 63, 0.08);
+    .hero-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
     }
 
-    .hero-icon {
-      width: 180px;
-      height: 180px;
-      filter: drop-shadow(0 16px 25px rgba(32, 94, 63, 0.12));
-    }
-
-    .search-area {
-      margin-top: 24px;
-      background: rgba(255,255,255,0.4);
-      border: 1px solid rgba(17,46,35,0.06);
-      border-radius: 22px;
-      padding: 18px 18px 12px;
-      box-shadow: var(--shadow);
-    }
-
-    .search-box {
-      position: relative;
-    }
-
-    .search-box svg {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0.7;
-    }
-
+    .search-box { margin-bottom: 25px; }
     .search-box input {
       width: 100%;
-      border-radius: 16px;
-      border: 1px solid rgba(17,46,35,0.08);
-      background: rgba(255,255,255,0.7);
-      padding: 17px 18px 17px 46px;
-      outline: none;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       font-size: 1rem;
-      color: var(--text);
-      box-shadow: inset 0 1px 2px rgba(26, 49, 37, 0.04);
+      outline: none;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     }
 
-    .content-wrap {
-      margin-top: 26px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 10px 0 18px;
-      flex-wrap: wrap;
-    }
-
-    .section-header h2 {
-      margin: 0;
-      font-size: clamp(1.5rem, 2vw, 2.1rem);
-      letter-spacing: -0.04em;
-    }
-
-    .pill {
-      background: var(--gold-soft);
-      border: 1px solid rgba(212, 154, 67, 0.14);
-      color: #8d651b;
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-weight: 700;
-      font-size: 0.72rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .grid-categories {
+    /* KATEGORIE-KARTEN (GRUPPEN) */
+    .groups-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
     }
-
-    .category-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78));
-      border: 1px solid rgba(17,46,35,0.06);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .group-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-
-    .category-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 42px rgba(19, 45, 34, 0.09);
+    .group-card h3 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 4px;
     }
-
-    .category-icon {
-      width: 70px;
-      height: 70px;
-      border-radius: 18px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
-      border: 1px solid rgba(17,46,35,0.05);
+    .group-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
     }
-
-    .category-card h3 {
-      font-size: 1.06rem;
-      margin: 0 0 6px;
-      letter-spacing: -0.02em;
-    }
-
-    .category-card p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .soft-btn {
-      border: none;
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-2) 100%);
+    .group-btn {
+      background: var(--primary);
       color: white;
-      border-radius: 12px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: transform 0.18s ease;
-    }
-
-    .soft-btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .nutrient-list {
-      display: grid;
-      gap: 18px;
-    }
-
-    .nutrient-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #fbfcfa 100%);
-      border: 1px solid rgba(17,46,35,0.06);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-
-    .nutrient-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border: 1px solid rgba(17,46,35,0.05);
-    }
-
-    .nutrient-main {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .nutrient-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-
-    .nutrient-head h3 {
-      margin: 0;
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      letter-spacing: -0.03em;
-    }
-
-    .tag {
-      border-radius: 999px;
-      padding: 6px 10px;
-      background: var(--green-3);
-      border: 1px solid rgba(27,94,63,0.08);
-      color: var(--green);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .nutrient-main > p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 0.97rem;
-    }
-
-    .details-btn {
       border: none;
-      background: transparent;
-      color: var(--green);
-      padding: 0;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-
-    .details-box {
-      display: none;
-      margin-top: 14px;
-      border-top: 1px dashed rgba(17,46,35,0.12);
-      padding-top: 14px;
-    }
-
-    .details-box.open {
-      display: block;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-
-    .info-box {
-      background: rgba(17,46,35,0.03);
-      border: 1px solid rgba(17,46,35,0.04);
-      border-radius: 16px;
-      padding: 12px 14px;
-    }
-
-    .info-box h4 {
-      margin: 0 0 6px;
-      color: var(--muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .info-box p {
-      margin: 0;
-      color: var(--text);
-      font-size: 0.95rem;
-    }
-
-    .food-list {
-      margin-top: 14px;
-      background: linear-gradient(180deg, rgba(236,249,239,0.7), rgba(244,250,245,0.8));
-      border: 1px solid rgba(27,94,63,0.08);
-      border-radius: 16px;
-      padding: 14px;
-    }
-
-    .food-list h4 {
-      margin: 0 0 6px;
-      color: var(--green);
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .food-list p {
-      margin: 0;
-      color: var(--text);
-      font-size: 0.94rem;
-    }
-
-    .affiliate-box {
-      margin-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      border: 1px solid rgba(17,46,35,0.06);
-      border-radius: 16px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.76);
-    }
-
-    .affiliate-box span {
-      color: var(--muted);
+      padding: 10px 20px;
+      border-radius: 8px;
       font-size: 0.9rem;
-    }
-
-    .shop-btn {
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-2) 100%);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-weight: 700;
+      font-weight: bold;
       cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .back-btn {
-      background: rgba(17,46,35,0.03);
-      border: 1px solid rgba(17,46,35,0.08);
-      border-radius: 12px;
-      padding: 10px 14px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: bold;
       cursor: pointer;
-      margin-bottom: 16px;
-      font-weight: 700;
-      color: var(--text);
+      margin-bottom: 20px;
+      display: inline-block;
     }
 
-    .empty-state {
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(17,46,35,0.06);
-      border-radius: 20px;
-      padding: 28px;
+    /* KOMPAKTE NÄHRSTOFF KARTE */
+    .nutrient-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .nutrient-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .nutrient-card-header h3 { font-size: 1.2rem; color: var(--primary); }
+    .category-tag {
+      background: var(--primary-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .short-desc {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .toggle-details-btn {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* AUSKLAPPBARE DETAILS */
+    .details-content {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--border);
+    }
+    .details-content.open {
+      display: block;
+    }
+
+    .nutrient-section { margin-bottom: 12px; }
+    .nutrient-section h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .nutrient-section p { font-size: 0.92rem; }
+
+    .food-box {
+      background: #f0f4f1;
+      border-left: 4px solid var(--primary);
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-top: 12px;
+    }
+    .food-box h4 {
+      color: var(--primary);
+      font-size: 0.85rem;
+      margin-bottom: 3px;
+      font-weight: bold;
+    }
+
+    .shop-box {
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 12px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .shop-box-text h4 { font-size: 0.9rem; color: var(--text-main); }
+    .shop-box-text p { font-size: 0.78rem; color: var(--text-muted); }
+    .shop-btn {
+      background: var(--primary);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    footer {
       text-align: center;
-      color: var(--muted);
-      box-shadow: var(--shadow);
-    }
-
-    @media (max-width: 820px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        padding: 28px 20px 18px;
-      }
-
-      .hero-art { min-height: 200px; }
-      .art-card { min-height: 200px; }
-      .hero-icon { width: 150px; height: 150px; }
-    }
-
-    @media (max-width: 560px) {
-      .topbar-inner {
-        justify-content: center;
-      }
-
-      .navs {
-        justify-content: center;
-      }
-
-      .stat-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .nutrient-card {
-        flex-direction: column;
-      }
-
-      .nutrient-icon {
-        width: 60px;
-        height: 60px;
-      }
+      padding: 25px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-mark">
-          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2c4.7 2.3 7 5 7 8.8 0 5.2-4.4 9.2-7 11.2-2.6-2-7-6-7-11.2C5 7 7.3 4.3 12 2z" fill="#dff9e7"/>
-            <path d="M12 7c1.6 1.1 2.8 2.7 2.8 4.5 0 2.5-2.2 4.8-2.8 5.5-.6-.7-2.8-3-2.8-5.5C9.2 9.7 10.4 8.1 12 7z" fill="#1e5f3b"/>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <strong>Nährstoffkompass</strong>
-          <span>Lebensmittel & Wirkung</span>
-        </div>
-      </div>
 
-      <nav class="navs" aria-label="Hauptnavigation">
-        <button class="nav-btn" type="button" onclick="showHome()">Start</button>
-        <button class="nav-btn" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">Top</button>
-        <button class="nav-btn" type="button" onclick="alert('Impressum: Angaben folgen.')">Impressum</button>
-      </nav>
-    </div>
+  <header role="banner">
+    <h1>Nährstoffkompass</h1>
+    <p>Sachliche Orientierung zu Nährstoffen, Wirkungen und Verträglichkeit.</p>
+    <nav aria-label="Hauptnavigation">
+      <button onclick="showHome()">Startseite</button>
+      <button onclick="alert('Impressum: Angaben folgen.')">Impressum</button>
+    </nav>
   </header>
 
-  <div class="page-shell">
-    <section class="hero" aria-label="Einführung">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="eyebrow">Premium-Nährstoff-Guide</div>
-          <h1>Die Nährstoffe, die wirklich zählen.</h1>
-          <p>
-            Klar, verständlich und praxisnah erklärt: von Makronährstoffen über Vitamine und Mineralstoffe bis zu Sport-, Darm- und Pflanzenstoffen.
-          </p>
+  <main role="main">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Stoff suchen (z.B. Vitamin D, Magnesium, Kreatin)..." oninput="handleSearch()">
+    </div>
 
-          <div class="cta-row">
-            <button class="primary-btn" type="button" onclick="document.getElementById('searchInput').focus();">Jetzt entdecken</button>
-            <button class="secondary-btn" type="button" onclick="showHome();">Kategorien öffnen</button>
-          </div>
+    <div id="contentView"></div>
+  </main>
 
-          <div class="stat-grid">
-            <div class="stat">
-              <strong>7</strong>
-              <span>Bereiche</span>
-            </div>
-            <div class="stat">
-              <strong>50+</strong>
-              <span>Stoffe</span>
-            </div>
-            <div class="stat">
-              <strong>1</strong>
-              <span>klarer Kompass</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-art" aria-hidden="true">
-          <div class="art-card">
-            <svg class="hero-icon" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="heroLeaf" x1="0%" x2="100%" y1="0%" y2="100%">
-                  <stop offset="0%" stop-color="#dff9e7"/>
-                  <stop offset="100%" stop-color="#8cc5a4"/>
-                </linearGradient>
-              </defs>
-              <circle cx="110" cy="110" r="88" fill="#edf9f0"/>
-              <path d="M111 42c42 17 68 47 69 90-29 16-66 19-104 6C51 117 52 75 111 42z" fill="url(#heroLeaf)"/>
-              <path d="M110 40v120" stroke="#1d5d3d" stroke-width="6" stroke-linecap="round"/>
-              <path d="M110 40c-24 27-37 57-38 88" stroke="#1d5d3d" stroke-width="6" stroke-linecap="round"/>
-              <path d="M110 40c25 28 38 56 38 87" stroke="#1d5d3d" stroke-width="6" stroke-linecap="round"/>
-              <circle cx="110" cy="110" r="12" fill="#fff9ef" stroke="#d49a43" stroke-width="4"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="search-area" aria-label="Suche nach Nährstoffen">
-      <div class="search-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="6.2" stroke="#294d3d" stroke-width="1.6" fill="none"/>
-          <path d="M16 16L21 21" stroke="#294d3d" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-        <input id="searchInput" type="text" placeholder="Suche nach Vitamin D, Magnesium, Kreatin, Protein..." oninput="handleSearch()"/>
-      </div>
-    </section>
-
-    <main id="contentView" class="content-wrap" aria-live="polite"></main>
-  </div>
+  <footer role="contentinfo">
+    <p>Hinweis: Die Inhalte dienen der allgemeinen Information und ersetzen keine ärztliche oder pharmazeutische Beratung. Dosierungen und Verträglichkeit können individuell abweichen.</p>
+  </footer>
 
   <script>
     const categoriesData = [
@@ -710,221 +277,292 @@
     ];
 
     const nutrientsData = [
-      { id: "protein", name: "Protein (Eiweiß)", category: "Makronährstoffe", funktion: "Hauptbaustein für Muskeln, Gewebe, Enzyme, Hormone und Immunsystem.", mangel: "Muskelabbau, Wundheilungsstörungen, geschwächtes Immunsystem.", tagesbedarf: "Ca. 0,8 g bis 2,0 g pro kg Körpergewicht.", quellen: "Hähnchenbrust, Rindfleisch, Magerquark, Eier, Linsen, Sojabohnen, Mandeln." },
-      { id: "kohlenhydrate", name: "Komplexe Kohlenhydrate", category: "Makronährstoffe", funktion: "Hauptenergieträger für Muskeln und Gehirn.", mangel: "Leistungsabfall, Müdigkeit, Konzentrationsschwäche.", tagesbedarf: "Ca. 45–55 % der täglichen Kalorienmenge.", quellen: "Haferflocken, Vollkornbrot, Kartoffeln, Quinoa, brauner Reis." },
-      { id: "ballaststoffe", name: "Ballaststoffe", category: "Makronährstoffe", funktion: "Fördern eine gesunde Verdauung, Sättigung und gesunde Darmbakterien.", mangel: "Verstopfung, träge Verdauung, Blutzuckerschwankungen.", tagesbedarf: "Mindestens 30 g pro Tag (DGE).", quellen: "Leinsamen, Flohsamenschalen, Vollkornprodukte, Bohnen, Brokkoli." },
-      { id: "leucin", name: "L-Leucin (BCAA)", category: "Makronährstoffe", funktion: "Stimuliert die Muskelproteinsynthese und unterstützt die Muskelreparatur.", mangel: "Muskelabbau, verlangsamte Regeneration.", tagesbedarf: "Ca. 39 mg/kg Körpergewicht (WHO).", quellen: "Molkenprotein, Rindfleisch, Hähnchen, Linsen, Eier." },
-      { id: "isoleucin", name: "L-Isoleucin (BCAA)", category: "Makronährstoffe", funktion: "Reguliert die Energieversorgung des Muskelgewebes und Blutzucker.", mangel: "Muskelverlust, Erschöpfung, Blutzuckerschwankungen.", tagesbedarf: "Ca. 20 mg/kg Körpergewicht (WHO).", quellen: "Fisch, Geflügel, Nüsse, Linsen, Käse." },
-      { id: "valin", name: "L-Valin (BCAA)", category: "Makronährstoffe", funktion: "Wichtig für Muskelwachstum, Gewebereparatur und Koordination.", mangel: "Gestörte Regeneration, Nervenempfindlichkeit.", tagesbedarf: "Ca. 26 mg/kg Körpergewicht (WHO).", quellen: "Eier, Milchprodukte, Erdnüsse, Haferflocken." },
-      { id: "glutamin", name: "L-Glutamin", category: "Makronährstoffe", funktion: "Haupttreibstoff für Magen-Darm-Zellen und Immunsystem.", mangel: "Darmprobleme, verlangsamte Regeneration.", tagesbedarf: "Erhöhter Bedarf bei intensivem Sport und Stress.", quellen: "Magerquark, Eier, Sojabohnen, Rindfleisch." },
-      { id: "arginin", name: "L-Arginin", category: "Makronährstoffe", funktion: "Fördert die Gefäßerweiterung, Durchblutung und Nährstoffversorgung.", mangel: "Durchblutungsstörungen, hoher Blutdruck.", tagesbedarf: "Ca. 2–5 g bei sportlicher Belastung.", quellen: "Kürbiskerne, Erdnüsse, Hähnchenbrust, Walnüsse." },
-      { id: "citrullin", name: "L-Citrullin", category: "Makronährstoffe", funktion: "Wird in Arginin umgewandelt und verbessert die Durchblutung.", mangel: "Reduzierte Ausdauer, verringerte Muskeldurchblutung.", tagesbedarf: "3–6 g vor dem Training.", quellen: "Wassermelone, Gurke, Kürbis." },
-      { id: "lysine", name: "L-Lysin", category: "Makronährstoffe", funktion: "Baustein für Kollagensynthese, Immunsystem und Calciumabsorption.", mangel: "Wachstumsstörungen, Immunschwäche, Infektanfälligkeit.", tagesbedarf: "Ca. 30 mg/kg Körpergewicht.", quellen: "Fleisch, Fisch, Eier, Tofu, Linsen." },
-      { id: "carnitin", name: "L-Carnitin", category: "Makronährstoffe", funktion: "Transportiert Fettsäuren in die Muskelzellen zur Fettverbrennung.", mangel: "Muskelschwäche, schnelle Erschöpfung.", tagesbedarf: "Körpereigene Synthese; Aufnahme über Nahrung.", quellen: "Rindfleisch, Lammfleisch, Wild, Dorsch." },
+      // --- MAKRONÄHRSTOFFE & AMINOSÄUREN ---
+      {
+        id: "protein",
+        name: "Protein (Eiweiß)",
+        category: "Makronährstoffe",
+        funktion: "Hauptbaustein für Muskeln, Gewebe, Enzyme, Hormone und Immunsystem.",
+        mangel: "Muskelabbau, Wundheilungsstörungen, geschwächtes Immunsystem.",
+        tagesbedarf: "Ca. 0,8 g bis 2,0 g pro kg Körpergewicht.",
+        quellen: "Hähnchenbrust, Rindfleisch, Magerquark, Eier, Linsen, Sojabohnen, Mandeln."
+      },
+      {
+        id: "kohlenhydrate",
+        name: "Komplexe Kohlenhydrate",
+        category: "Makronährstoffe",
+        funktion: "Hauptenergieträger für Muskeln und Gehirn.",
+        mangel: "Leistungsabfall, Müdigkeit, Konzentrationsschwäche.",
+        tagesbedarf: "Ca. 45–55 % der täglichen Kalorienmenge.",
+        quellen: "Haferflocken, Vollkornbrot, Kartoffeln, Quinoa, brauner Reis."
+      },
+      {
+        id: "ballaststoffe",
+        name: "Ballaststoffe",
+        category: "Makronährstoffe",
+        funktion: "Fördern eine gesunde Verdauung, Sättigung und gesunde Darmbakterien.",
+        mangel: "Verstopfung, träge Verdauung, Blutzuckerschwankungen.",
+        tagesbedarf: "Mindestens 30 g pro Tag (DGE).",
+        quellen: "Leinsamen, Flohsamenschalen, Vollkornprodukte, Bohnen, Brokkoli."
+      },
+      {
+        id: "carnitin",
+        name: "L-Carnitin",
+        category: "Makronährstoffe",
+        funktion: "Transportiert Fettsäuren in die Muskelzellen zur Fettverbrennung.",
+        mangel: "Muskelschwäche, schnelle Erschöpfung.",
+        tagesbedarf: "Körpereigene Synthese; Aufnahme über Nahrung.",
+        quellen: "Rindfleisch, Lammfleisch, Wild, Dorsch."
+      },
+      {
+        id: "glutamin",
+        name: "L-Glutamin",
+        category: "Makronährstoffe",
+        funktion: "Haupttreibstoff für Magen-Darm-Zellen und Immunsystem.",
+        mangel: "Darmprobleme, verlangsamte Regeneration.",
+        tagesbedarf: "Erhöhter Bedarf bei intensivem Sport und Stress.",
+        quellen: "Magerquark, Eier, Sojabohnen, Rindfleisch."
+      },
+      {
+        id: "arginin",
+        name: "L-Arginin",
+        category: "Makronährstoffe",
+        funktion: "Fördert die Gefäßerweiterung, Durchblutung und Nährstoffversorgung.",
+        mangel: "Durchblutungsstörungen, hoher Blutdruck.",
+        tagesbedarf: "Ca. 2–5 g bei sportlicher Belastung.",
+        quellen: "Kürbiskerne, Erdnüsse, Hähnchenbrust, Walnüsse."
+      },
 
-      { id: "vitamin-a", name: "Vitamin A (Retinol)", category: "Vitamine", funktion: "Unterstützt Sehkraft, Immunsystem, Zellwachstum und Haut.", mangel: "Nachtblindheit, trockene Haut, erhöhte Infektanfälligkeit.", tagesbedarf: "Ca. 700–850 µg RAE pro Tag.", quellen: "Rinderleber, Karotten, Süßkartoffeln, Spinat, Eigelb." },
-      { id: "vitamin-b1", name: "Vitamin B1 (Thiamin)", category: "Vitamine", funktion: "Unerlässlich für Kohlenhydratstoffwechsel und Nervenfunktion.", mangel: "Müdigkeit, Reizbarkeit, Gedächtnisstörungen.", tagesbedarf: "Ca. 1,0–1,3 mg pro Tag.", quellen: "Vollkornprodukte, Schweinefleisch, Sonnenblumenkerne." },
-      { id: "vitamin-b2", name: "Vitamin B2 (Riboflavin)", category: "Vitamine", funktion: "Beteiligt an Energiegewinnung, Zellschutz und Hautgesundheit.", mangel: "Einrisse an den Mundwinkeln, Hautentzündungen.", tagesbedarf: "Ca. 1,1–1,4 mg pro Tag.", quellen: "Milchprodukte, Eier, Fleisch, Mandeln, Champignons." },
-      { id: "vitamin-b3", name: "Vitamin B3 (Niacin)", category: "Vitamine", funktion: "Wichtig für Energiestoffwechsel, DNA-Reparatur und Nervensystem.", mangel: "Hautveränderungen, Durchfall, Demenz-Symptome.", tagesbedarf: "Ca. 12–16 mg NE pro Tag.", quellen: "Geflügel, Fisch, Erdnüsse, Pilze, Vollkorn." },
-      { id: "vitamin-b5", name: "Vitamin B5 (Pantothensäure)", category: "Vitamine", funktion: "Wichtig für Hormonsynthese, Energiestoffwechsel und Regeneration.", mangel: "Sehr selten; Taubheitsgefühl in den Zehen.", tagesbedarf: "Ca. 5 mg pro Tag.", quellen: "Leber, Eier, Nüsse, Avocados, Haferflocken." },
-      { id: "vitamin-b6", name: "Vitamin B6 (Pyridoxin)", category: "Vitamine", funktion: "Zentral für Aminosäurestoffwechsel, Nerven und Hämoglobinbildung.", mangel: "Anämie, Nervenstörungen, Hautveränderungen.", tagesbedarf: "Ca. 1,4–1,6 mg pro Tag.", quellen: "Lachs, Hähnchen, Bananen, Kartoffeln, Walnüsse." },
-      { id: "vitamin-b7", name: "Vitamin B7 (Biotin)", category: "Vitamine", funktion: "Essenziell für Stoffwechsel von Fett und Eiweiß, Haare und Haut.", mangel: "Haarausfall, brüchige Nägel, Hautausschläge.", tagesbedarf: "Ca. 40 µg pro Tag.", quellen: "Eigelb, Haferflocken, Nüsse, Sojabohnen." },
-      { id: "vitamin-b9", name: "Vitamin B9 (Folsäure)", category: "Vitamine", funktion: "Unerlässlich für Zellteilung, Blutbildung und Gewebewachstum.", mangel: "Blutarmut, erhöhtes Risiko in der Schwangerschaft.", tagesbedarf: "Ca. 300 µg (Schwangere 550 µg) pro Tag.", quellen: "Grünes Blattgemüse, Hülsenfrüchte, Orangen." },
-      { id: "vitamin-b12", name: "Vitamin B12 (Cobalamin)", category: "Vitamine", funktion: "Essenziell für Blutbildung, Nervensystem und DNA-Synthese.", mangel: "Müdigkeit, Kribbeln in Händen/Füßen, Anämie.", tagesbedarf: "Ca. 4,0 µg pro Tag.", quellen: "Rindfleisch, Lachs, Eier, Käse (für Veganer als Supplement)." },
-      { id: "vitamin-c", name: "Vitamin C (Ascorbinsäure)", category: "Vitamine", funktion: "Starkes Antioxidans, stärkt Immunsystem und Kollagensynthese.", mangel: "Infektanfälligkeit, Zahnfleischbluten, langsame Wundheilung.", tagesbedarf: "Ca. 95–110 mg pro Tag.", quellen: "Rote Paprika, schwarze Johannisbeeren, Zitrusfrüchte, Brokkoli." },
-      { id: "vitamin-d3", name: "Vitamin D3 (Cholecalciferol)", category: "Vitamine", funktion: "Reguliert Kalziumaufnahme, Knochendichte, Muskeln und Immunsystem.", mangel: "Knochenerweichung, erhöhte Infektanfälligkeit, Muskelschwäche.", tagesbedarf: "Ca. 20 µg (800 IE) bei fehlender Sonnenbestrahlung.", quellen: "Sonnenlicht (UVB), Lachs, Makrele, Eigelb." },
-      { id: "vitamin-e", name: "Vitamin E (Tocopherol)", category: "Vitamine", funktion: "Wichtigstes fettlösliches Antioxidans zum Schutz der Zellmembranen.", mangel: "Nervenstörungen, Muskelschwäche.", tagesbedarf: "Ca. 12–15 mg pro Tag.", quellen: "Weizenkeimöl, Sonnenblumenöl, Nüsse, Mandeln." },
-      { id: "vitamin-k2", name: "Vitamin K2 (Menachinon)", category: "Vitamine", funktion: "Steuert die Verwertung von Kalzium in Knochen und schützt Gefäße.", mangel: "Erhöhte Blutungsneigung, geschwächte Knochen.", tagesbedarf: "Ca. 60–80 µg pro Tag.", quellen: "Fermentierte Speisen (Natto), Hartkäse, Eigelb, Butter." },
+      // --- VITAMINE ---
+      {
+        id: "vitamin-a",
+        name: "Vitamin A (Retinol)",
+        category: "Vitamine",
+        funktion: "Unterstützt Sehkraft, Immunsystem, Zellwachstum sowie Haut.",
+        mangel: "Nachtblindheit, trockene Haut, erhöhte Infektanfälligkeit.",
+        tagesbedarf: "Ca. 700–850 µg RAE pro Tag.",
+        quellen: "Rinderleber, Karotten (Beta-Carotin), Süßkartoffeln, Spinat, Eigelb."
+      },
+      {
+        id: "vitamin-b12",
+        name: "Vitamin B12 (Cobalamin)",
+        category: "Vitamine",
+        funktion: "Essenziell für Blutbildung, Nervensystem und DNA-Synthese.",
+        mangel: "Müdigkeit, Kribbeln in Händen/Füßen, Anämie.",
+        tagesbedarf: "Ca. 4,0 µg pro Tag.",
+        quellen: "Rindfleisch, Lachs, Eier, Käse (für Veganer als Supplement)."
+      },
+      {
+        id: "vitamin-c",
+        name: "Vitamin C (Ascorbinsäure)",
+        category: "Vitamine",
+        funktion: "Starkes Antioxidans, stärkt Immunsystem und Kollagensynthese.",
+        mangel: "Infektanfälligkeit, Zahnfleischbluten, langsame Wundheilung.",
+        tagesbedarf: "Ca. 95–110 mg pro Tag.",
+        quellen: "Rote Paprika, schwarze Johannisbeeren, Zitrusfrüchte, Brokkoli."
+      },
+      {
+        id: "vitamin-d3",
+        name: "Vitamin D3 (Cholecalciferol)",
+        category: "Vitamine",
+        funktion: "Reguliert Kalziumaufnahme, Knochendichte, Muskeln und Immunsystem.",
+        mangel: "Knochenerweichung, erhöhte Infektanfälligkeit, Muskelschwäche.",
+        tagesbedarf: "Ca. 20 µg (800 IE) bei fehlender Sonnenbestrahlung.",
+        quellen: "Sonnenlicht (UVB), Lachs, Makrele, Eigelb."
+      },
+      {
+        id: "vitamin-k2",
+        name: "Vitamin K2 (Menachinon)",
+        category: "Vitamine",
+        funktion: "Steuert die Verwertung von Kalzium in Knochen und schützt Gefäße.",
+        mangel: "Erhöhte Blutungsneigung, geschwächte Knochen.",
+        tagesbedarf: "Ca. 60–80 µg pro Tag.",
+        quellen: "Fermentierte Speisen (Natto), Hartkäse, Eigelb, Butter."
+      },
 
-      { id: "magnesium", name: "Magnesium", category: "Mineralstoffe", funktion: "Cofaktor für >300 Enzymreaktionen, Muskel- und Nervenfunktion.", mangel: "Muskelkrämpfe, Innere Unruhe, Kopfschmerzen.", tagesbedarf: "Ca. 300–400 mg pro Tag.", quellen: "Kürbiskerne, Mandeln, Zartbitterschokolade, Haferflocken, Bohnen." },
-      { id: "kalzium", name: "Kalzium", category: "Mineralstoffe", funktion: "Hauptbaustein für Stabilität von Knochen und Zähnen.", mangel: "Osteoporose, Muskelkrämpfe, brüchige Nägel.", tagesbedarf: "Ca. 1000 mg pro Tag.", quellen: "Käse, Milch, Grünkohl, Brokkoli, Mineralwasser." },
-      { id: "kalium", name: "Kalium", category: "Mineralstoffe", funktion: "Reguliert Flüssigkeitshaushalt, Blutdruck und Herzfunktion.", mangel: "Muskelschwäche, Herzrhythmusstörungen, Verstopfung.", tagesbedarf: "Ca. 4000 mg pro Tag.", quellen: "Bananen, Kartoffeln mit Schale, Tomatenmark, Trockenobst." },
-      { id: "zink", name: "Zink", category: "Mineralstoffe", funktion: "Unerlässlich für Immunsystem, Wundheilung, Haut und Testosteronspiegel.", mangel: "Infektanfälligkeit, Haarausfall, brüchige Nägel.", tagesbedarf: "Ca. 8–14 mg pro Tag.", quellen: "Austern, Rindfleisch, Kürbiskerne, Linsen, Eier." },
-      { id: "eisen", name: "Eisen", category: "Mineralstoffe", funktion: "Sauerstofftransport im Blut und zelluläre Energiegewinnung.", mangel: "Blässe, ständige Müdigkeit, Atemnot bei Belastung.", tagesbedarf: "Ca. 10–15 mg pro Tag.", quellen: "Rotes Fleisch, Linsen, Kürbiskerne, Sesam, Spinat." },
-      { id: "selen", name: "Selen", category: "Mineralstoffe", funktion: "Schützt Zellen vor oxidativem Stress und unterstützt die Schilddrüse.", mangel: "Schilddrüsenstörungen, geschwächte Abwehrkräfte.", tagesbedarf: "Ca. 60–70 µg pro Tag.", quellen: "Paranüsse, Steinpilze, Fisch, Eier, Linsen." },
-      { id: "jod", name: "Jod", category: "Mineralstoffe", funktion: "Essenziell für die Produktion von Schilddrüsenhormonen.", mangel: "Schilddrüsenvergrößerung (Kropf), Müdigkeit, Gewichtszunahme.", tagesbedarf: "Ca. 180–200 µg pro Tag.", quellen: "Jodiertes Speisesalz, Seefisch, Meeresalgen, Milch." },
-      { id: "kupfer", name: "Kupfer", category: "Mineralstoffe", funktion: "Beteiligt an Eisenaufnahme, Bindegewebsbildung und Nervensystem.", mangel: "Blutarmut, Pigmentstörungen, Knochenschwäche.", tagesbedarf: "Ca. 1,0–1,5 mg pro Tag.", quellen: "Innereien, Schalentiere, Nüsse, Kakao, Vollkorn." },
-      { id: "mangan", name: "Mangan", category: "Mineralstoffe", funktion: "Aktiviert Enzyme für Knorpel- und Knochenaufbau.", mangel: "Knorpelschäden, gestörter Fett- und Kohlenhydratstoffwechsel.", tagesbedarf: "Ca. 2,0–5,0 mg pro Tag.", quellen: "Haferflocken, Vollkorn, Haselnüsse, schwarzer Tee." },
-      { id: "chrom", name: "Chrom", category: "Mineralstoffe", funktion: "Trägt zur Aufrechterhaltung eines normalen Blutzuckerspiegels bei.", mangel: "Blutzuckerschwankungen, verringerte Glukosetoleranz.", tagesbedarf: "Ca. 30–100 µg pro Tag.", quellen: "Bierhefe, Vollkorn, Fleisch, Nüsse, Brokkoli." },
-      { id: "molybdaen", name: "Molybdän", category: "Mineralstoffe", funktion: "Beteiligt am Abbau schwefelhaltiger Aminosäuren und Harnsäure.", mangel: "Übelkeit, Herzrasen, Orientierungslosigkeit.", tagesbedarf: "Ca. 50–100 µg pro Tag.", quellen: "Hülsenfrüchte, Nüsse, Getreide, rotblättriges Gemüse." },
+      // --- MINERALSTOFFE ---
+      {
+        id: "magnesium",
+        name: "Magnesium",
+        category: "Mineralstoffe",
+        funktion: "Cofaktor für >300 Enzymreaktionen, Muskel- und Nervenfunktion.",
+        mangel: "Muskelkrämpfe, Innere Unruhe, Kopfschmerzen.",
+        tagesbedarf: "Ca. 300–400 mg pro Tag.",
+        quellen: "Kürbiskerne, Mandeln, Zartbitterschokolade, Haferflocken, Bohnen."
+      },
+      {
+        id: "zink",
+        name: "Zink",
+        category: "Mineralstoffe",
+        funktion: "Unerlässlich für Immunsystem, Wundheilung, Haut und Testosteronspiegel.",
+        mangel: "Infektanfälligkeit, Haarausfall, brüchige Nägel.",
+        tagesbedarf: "Ca. 8–14 mg pro Tag.",
+        quellen: "Austern, Rindfleisch, Kürbiskerne, Linsen, Eier."
+      },
+      {
+        id: "eisen",
+        name: "Eisen",
+        category: "Mineralstoffe",
+        funktion: "Sauerstofftransport im Blut und zelluläre Energiegewinnung.",
+        mangel: "Blässe, ständige Müdigkeit, Atemnot bei Belastung.",
+        tagesbedarf: "Ca. 10–15 mg pro Tag.",
+        quellen: "Rotes Fleisch, Linsen, Kürbiskerne, Sesam, Spinat."
+      },
 
-      { id: "omega-3-epa", name: "Omega-3 EPA (Eicosapentaensäure)", category: "Fettsäuren", funktion: "Hemmt Entzündungen im Körper und unterstützt die Herzgesundheit.", mangel: "Erhöhte Entzündungswerte, trockenes Auge, Herzrisiko.", tagesbedarf: "Mind. 250 mg EPA + DHA kombiniert.", quellen: "Lachs, Makrele, Hering, Algenöl." },
-      { id: "omega-3-dha", name: "Omega-3 DHA (Docosahexaensäure)", category: "Fettsäuren", funktion: "Zentraler Baustein für Gehirnstruktur und Sehkraft.", mangel: "Konzentrationsschwäche, Sehstörungen.", tagesbedarf: "Mind. 250 mg EPA + DHA kombiniert.", quellen: "Algenöl, fettreicher Seefisch, Krillöl." },
-      { id: "ala-omega-3", name: "Alpha-Linolensäure (ALA)", category: "Fettsäuren", funktion: "Pflanzliche Omega-3-Fettsäure für normale Cholesterinspiegel.", mangel: "Hautveränderungen, verlangsamtes Wachstum.", tagesbedarf: "Ca. 0,5 % der täglichen Energieaufnahme.", quellen: "Leinöl, Chia-Samen, Walnüsse, Rapsöl." },
-      { id: "mct-oel", name: "MCT-Fettsäuren", category: "Fettsäuren", funktion: "Wird direkt in der Leber zu Ketonkörpern umgewandelt und liefert schnelle Energie.", mangel: "Kein klassischer Mangelzustand.", tagesbedarf: "Flexibel dosierbar.", quellen: "Kokosöl, Palmkernöl, reines MCT-Öl." },
-      { id: "lecithin", name: "Lecithin (Phosphatidylcholin)", category: "Fettsäuren", funktion: "Zellmembran-Baustein, schützt Leber und Gehirn.", mangel: "Fettleber-Risiko, Gedächtniseinbußen.", tagesbedarf: "Ca. 400 mg Cholin-Äquivalent.", quellen: "Eigelb, Sojabohnen, Sonnenblumenkerne." },
+      // --- FETTSÄUREN ---
+      {
+        id: "omega-3-epa",
+        name: "Omega-3 (EPA & DHA)",
+        category: "Fettsäuren",
+        funktion: "Schützt Herz-Kreislauf-System, Gehirnfunktion und hemmt Entzündungen.",
+        mangel: "Trockene Augen, Konzentrationsschwäche, hohe Entzündungswerte.",
+        tagesbedarf: "Mind. 250–500 mg EPA/DHA täglich.",
+        quellen: "Lachs, Makrele, Hering, Algenöl-Kapseln."
+      },
 
-      { id: "coenzym-q10", name: "Coenzym Q10 (Ubiquinol)", category: "Pflanzenstoffe", funktion: "Schlüsselelement der zellulären Energieproduktion in den Mitochondrien.", mangel: "Muskel- und Herzschwäche, besonders ab 30 Jahren.", tagesbedarf: "Häufig 50–200 mg ergänzt.", quellen: "Innereien, Nüsse, fetter Fisch, Hülsenfrüchte." },
-      { id: "curcumin", name: "Curcumin (Kurkuma-Extrakt)", category: "Pflanzenstoffe", funktion: "Stark entzündungshemmender Pflanzenstoff für Gelenke und Verdauung.", mangel: "Kein essenzieller Nährstoff.", tagesbedarf: "Am besten mit schwarzem Pfeffer kombiniert.", quellen: "Kurkumawurzel, Curcumin-Extrakt." },
-      { id: "astaxanthin", name: "Astaxanthin", category: "Pflanzenstoffe", funktion: "Starkes Antioxidans, schützt Haut und Augen vor UV-Schäden.", mangel: "Kein essenzieller Nährstoff.", tagesbedarf: "Typische Einnahme: 4–8 mg täglich.", quellen: "Blutregenalge, Lachs, Garnelen." },
-      { id: "opc-traubenkern", name: "OPC (Traubenkernextrakt)", category: "Pflanzenstoffe", funktion: "Schützt Kollagenstrukturen in Gefäßen und Haut.", mangel: "Kein essenzieller Nährstoff.", tagesbedarf: "150–300 mg Tagesdosis.", quellen: "Trauberkerne, Pinienrinde, rote Traubenschalen." },
-      { id: "sulforaphan", name: "Sulforaphan", category: "Pflanzenstoffe", funktion: "Aktiviert körpereigene Entgiftungsenzyme und stärkt das Schutzsystem.", mangel: "Kein essenzieller Nährstoff.", tagesbedarf: "Aufnahme über Senföl-haltiges Gemüse.", quellen: "Brokkolisprossen, Brokkoli, Blumenkohl, Rucola." },
+      // --- PERFORMANCE ---
+      {
+        id: "kreatin",
+        name: "Kreatin-Monohydrat",
+        category: "Performance",
+        funktion: "Steigert die Schnellkraft und Muskelenergie bei intensiven Workouts.",
+        mangel: "Schnellere Ermüdung bei Kraftanstrengung.",
+        tagesbedarf: "3–5 g täglich für volle Wirkung.",
+        quellen: "Rindfleisch, Schweinefleisch, Hering, Lachs."
+      },
 
-      { id: "kreatin", name: "Kreatin-Monohydrat", category: "Performance", funktion: "Steigert die Schnellkraft und Muskelenergie bei intensiven Workouts.", mangel: "Geringere Schnellkraftreserven.", tagesbedarf: "3–5 g täglich für volle Wirkung.", quellen: "Rindfleisch, Schweinefleisch, Hering, Lachs." },
-      { id: "beta-alanin", name: "Beta-Alanin", category: "Performance", funktion: "Puffert Milchsäure in den Muskeln ab und verzögert Muskelermüdung.", mangel: "Verringerte Übersäuerungstoleranz.", tagesbedarf: "3,2–6,4 g täglich über mehrere Wochen.", quellen: "Fleisch (besonders Geflügel), Fisch." },
-      { id: "kollagen-peptide", name: "Kollagen-Peptide", category: "Performance", funktion: "Strukturprotein für Bindegewebe, Gelenkknorpel, Sehnen und Bänder.", mangel: "Faltenbildung, Gelenkverschleiß im Alter.", tagesbedarf: "5–15 g hydrolysiertes Kollagen.", quellen: "Knochenbrühe, Gelatine, Kollagen-Hydrolysat." },
-      { id: "glucosamin", name: "Glucosaminsulfat", category: "Performance", funktion: "Natürlicher Bestandteil des Bindegewebes und der Gelenkflüssigkeit.", mangel: "Gelenkverschleiß, steife Gelenke.", tagesbedarf: "1200–1500 mg täglich.", quellen: "Krebstiere (Krabben- und Garnelenschalen)." },
-
-      { id: "probiotika", name: "Probiotische Kulturen", category: "Darmgesundheit", funktion: "Unterstützen eine ausgewogene Darmflora und die Immunabwehr im Darm.", mangel: "Fehlbesiedlung des Darms, Blähungen.", tagesbedarf: "Dosierung in KBE (Koloniebildende Einheiten).", quellen: "Joghurt, Kefir, Sauerkraut, Kimchi, Kombucha." },
-      { id: "inulin", name: "Inulin (Präbiotikum)", category: "Darmgesundheit", funktion: "Nahrung für nützliche Darmbakterien und gesunde Darmflora.", mangel: "Träge Verdauung, verringerte Mikrobiom-Vielfalt.", tagesbedarf: "Teil der empfohlenen 30 g Ballaststoffe.", quellen: "Zichorienwurzel, Topinambur, Knoblauch, Zwiebeln." },
-      { id: "flohsamenschalen", name: "Flohsamenschalen (Psyllium)", category: "Darmgesundheit", funktion: "Quellfähige Ballaststoffe, regulieren die Stuhlconsistenz und Darmpassage.", mangel: "Verstopfung, unregelmäßiger Stuhlgang.", tagesbedarf: "10–20 g täglich mit reichlich Wasser.", quellen: "Indische Flohsamenschalen." }
+      // --- DARMGESUNDHEIT ---
+      {
+        id: "inulin",
+        name: "Inulin (Präbiotikum)",
+        category: "Darmgesundheit",
+        funktion: "Nahrung für nützliche Darmbakterien, unterstützt eine gesunde Darmflora.",
+        mangel: "Träge Verdauung, verringerte Mikrobiom-Vielfalt.",
+        tagesbedarf: "Teil der empfohlenen 30 g Ballaststoffe.",
+        quellen: "Zichorienwurzel, Topinambur, Knoblauch, Zwiebeln."
+      }
     ];
 
-    function categoryIcon(key) {
-      const colors = {
-        "Makronährstoffe": { bg: "#fff3e9", accent: "#d77d32" },
-        "Vitamine": { bg: "#fff7d9", accent: "#d9a72b" },
-        "Mineralstoffe": { bg: "#ebf4ff", accent: "#4093c9" },
-        "Fettsäuren": { bg: "#fff1f5", accent: "#db6a88" },
-        "Pflanzenstoffe": { bg: "#edfaf0", accent: "#57a870" },
-        "Performance": { bg: "#fff8e8", accent: "#d38d33" },
-        "Darmgesundheit": { bg: "#fff6ee", accent: "#d9915b" }
-      };
-      const c = colors[key] || { bg: "#edf3ef", accent: "#376c52" };
-
-      const svgMap = {
-        "Makronährstoffe": '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M7 7v10M17 7v10" stroke="'+c.accent+'" stroke-width="2" stroke-linecap="round"/></svg>',
-        "Vitamine": '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="'+c.accent+'"/><path d="M12 12v7" stroke="'+c.accent+'" stroke-width="2" stroke-linecap="round"/></svg>',
-        "Mineralstoffe": '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 4v6c0 4.5-7 8-7 8s-7-3.5-7-8V7l7-4z" fill="'+c.accent+'" opacity="0.75"/><path d="M12 7v7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',
-        "Fettsäuren": '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-3.6 4.2-6 6.7-6 10.1C6 17.4 8.7 20 12 20s6-2.6 6-7.9C18 8.7 15.6 6.2 12 2z" fill="'+c.accent+'" opacity="0.85"/></svg>',
-        "Pflanzenstoffe": '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3.5 2.6 6 5.1 6 8.7 0 4.5-4 8.3-6 10.3-2-2-6-5.8-6-10.3C6 8.1 8.5 5.6 12 3z" fill="'+c.accent+'" opacity="0.8"/></svg>',
-        "Performance": '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h6l3-8 3 16 2-8h4" stroke="'+c.accent+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
-        "Darmgesundheit": '<svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.5" fill="'+c.accent+'" opacity="0.8"/><path d="M12 5c2.3 1.5 4 3.5 4 6 0 2.5-2.1 5-4 6-1.9-1-4-3.5-4-6 0-2.5 1.7-4.5 4-6z" fill="#fff" opacity="0.85"/></svg>'
-      };
-
-      return `<div class="category-icon" style="background:${c.bg};">${svgMap[key] || svgMap["Makronährstoffe"]}</div>`;
-    }
-
-    function nutrientIcon(category) {
-      return categoryIcon(category);
-    }
+    let currentCategoryKey = null;
 
     function showHome() {
-      document.getElementById('searchInput').value = '';
-      location.hash = '';
-      const container = document.getElementById('contentView');
+      currentCategoryKey = null;
+      document.getElementById("searchInput").value = "";
+      location.hash = "";
+      const container = document.getElementById("contentView");
       container.innerHTML = `
-        <div class="section-header">
-          <h2>Wähle einen Bereich</h2>
-          <span class="pill">Premium Übersicht</span>
-        </div>
-        <div class="grid-categories">
+        <h2 class="hero-title">Sieben Bereiche. Klare Orientierung.</h2>
+        <p class="hero-sub">Entdecke alle Nährstoffe, transparent erklärt und übersichtlich gegliedert.</p>
+        <div class="groups-grid">
           ${categoriesData.map(cat => `
-            <article class="category-card">
-              ${categoryIcon(cat.key)}
-              <div style="flex:1; min-width:0;">
-                <h3>${cat.name}</h3>
-                <p>${cat.count}</p>
-                <button class="soft-btn" type="button" onclick="openCategory('${cat.key}')">Kategorie öffnen</button>
-              </div>
-            </article>
-          `).join('')}
+            <div class="group-card">
+              <h3>${cat.name}</h3>
+              <p>${cat.count}</p>
+              <button class="group-btn" onclick="openCategory('${cat.key}')">Kategorie öffnen</button>
+            </div>
+          `).join("")}
         </div>
       `;
     }
 
     function openCategory(categoryKey) {
       currentCategoryKey = categoryKey;
-      location.hash = 'category/' + encodeURIComponent(categoryKey);
+      location.hash = "category/" + encodeURIComponent(categoryKey);
       const filtered = nutrientsData.filter(item => item.category === categoryKey);
       renderNutrientCards(filtered, true);
     }
 
     function toggleDetails(id) {
-      const box = document.getElementById(`details-${id}`);
-      const btn = document.getElementById(`btn-${id}`);
-      const isOpen = box.classList.contains('open');
+      const detailsEl = document.getElementById(`details-${id}`);
+      const btnEl = document.getElementById(`btn-${id}`);
+      const isOpen = detailsEl.classList.contains("open");
 
       if (isOpen) {
-        box.classList.remove('open');
-        btn.textContent = '▼ Details & Quellen anzeigen';
+        detailsEl.classList.remove("open");
+        btnEl.innerHTML = "▼ Details & Quellen anzeigen";
         if (currentCategoryKey) {
-          location.hash = 'category/' + encodeURIComponent(currentCategoryKey);
+          location.hash = "category/" + encodeURIComponent(currentCategoryKey);
         } else {
-          location.hash = '';
+          location.hash = "";
         }
       } else {
-        box.classList.add('open');
-        btn.textContent = '▲ Details ausblenden';
-        location.hash = 'item/' + encodeURIComponent(id);
+        detailsEl.classList.add("open");
+        btnEl.innerHTML = "▲ Details ausblenden";
+        location.hash = "item/" + encodeURIComponent(id);
       }
     }
 
     function renderNutrientCards(items, showBackBtn = false) {
-      const container = document.getElementById('contentView');
-      if (!items.length) {
+      const container = document.getElementById("contentView");
+      if (items.length === 0) {
         container.innerHTML = `
-          ${showBackBtn ? '<button class="back-btn" type="button" onclick="showHome()">← Zurück zur Übersicht</button>' : ''}
-          <div class="empty-state">Keine Nährstoffe gefunden.</div>
+          ${showBackBtn ? '<button class="back-btn" onclick="showHome()">← Zurück zur Übersicht</button>' : ''}
+          <p style="text-align:center; padding:20px; color:var(--text-muted);">Keine Nährstoffe gefunden.</p>
         `;
         return;
       }
 
       container.innerHTML = `
-        ${showBackBtn ? '<button class="back-btn" type="button" onclick="showHome()">← Zurück zur Übersicht</button>' : ''}
-        <div class="nutrient-list">
-          ${items.map(item => `
-            <article class="nutrient-card" id="${item.id}">
-              <div class="nutrient-icon">${nutrientIcon(item.category)}</div>
-              <div class="nutrient-main">
-                <div class="nutrient-head">
-                  <h3>${item.name}</h3>
-                  <span class="tag">${item.category}</span>
-                </div>
-                <p>${item.funktion}</p>
+        ${showBackBtn ? '<button class="back-btn" onclick="showHome()">← Zurück zur Übersicht</button>' : ''}
+        ${items.map(item => `
+          <article class="nutrient-card" id="${item.id}">
+            <div class="nutrient-card-header">
+              <h3>${item.name}</h3>
+              <span class="category-tag">${item.category}</span>
+            </div>
+            
+            <p class="short-desc">${item.funktion}</p>
 
-                <button class="details-btn" id="btn-${item.id}" type="button" onclick="toggleDetails('${item.id}')">
-                  ▼ Details & Quellen anzeigen
-                </button>
+            <button class="toggle-details-btn" id="btn-${item.id}" onclick="toggleDetails('${item.id}')">
+              ▼ Details & Quellen anzeigen
+            </button>
 
-                <div class="details-box" id="details-${item.id}">
-                  <div class="info-grid">
-                    <div class="info-box">
-                      <h4>Mangel</h4>
-                      <p>${item.mangel}</p>
-                    </div>
-                    <div class="info-box">
-                      <h4>Tagesbedarf</h4>
-                      <p>${item.tagesbedarf}</p>
-                    </div>
-                  </div>
-
-                  <div class="food-list">
-                    <h4>Natürliche Quellen</h4>
-                    <p>${item.quellen}</p>
-                  </div>
-
-                  <div class="affiliate-box">
-                    <span>🛒 Empfohlenes Produkt (*Werbung)</span>
-                    <a class="shop-btn" href="#" rel="sponsored noopener">Zum Shop</a>
-                  </div>
-                </div>
+            <div class="details-content" id="details-${item.id}">
+              <div class="nutrient-section">
+                <h4>Mögliche Symptome bei Mangel</h4>
+                <p>${item.mangel}</p>
               </div>
-            </article>
-          `).join('')}
-        </div>
+
+              <div class="nutrient-section">
+                <h4>Empfohlene Tagesdosis</h4>
+                <p><strong>${item.tagesbedarf}</strong></p>
+              </div>
+
+              <div class="food-box">
+                <h4>🥦 Natürliche Lebensmittel-Quellen:</h4>
+                <p>${item.quellen}</p>
+              </div>
+
+              <div class="shop-box">
+                <div class="shop-box-text">
+                  <h4>🛒 Empfohlenes Produkt (*Werbung)</h4>
+                  <p>Laborgeprüfte Qualität & hohe Bioverfügbarkeit</p>
+                </div>
+                <a href="#" rel="sponsored noopener" class="shop-btn">Zum Shop</a>
+              </div>
+            </div>
+          </article>
+        `).join("")}
       `;
     }
 
     function handleSearch() {
-      const term = document.getElementById('searchInput').value.trim();
-      const value = term.toLowerCase();
+      const searchTerm = document.getElementById("searchInput").value.trim();
+      const normalized = searchTerm.toLowerCase();
 
-      if (!value) {
+      if (!normalized) {
         showHome();
         return;
       }
 
-      location.hash = 'search/' + encodeURIComponent(term);
-      const filtered = nutrientsData.filter(item =>
-        item.name.toLowerCase().includes(value) ||
-        item.funktion.toLowerCase().includes(value) ||
-        item.category.toLowerCase().includes(value)
+      location.hash = "search/" + encodeURIComponent(searchTerm);
+      const filtered = nutrientsData.filter(item => 
+        item.name.toLowerCase().includes(normalized) || 
+        item.funktion.toLowerCase().includes(normalized) ||
+        item.category.toLowerCase().includes(normalized)
       );
       renderNutrientCards(filtered, true);
     }
-
-    let currentCategoryKey = null;
 
     function handleHash() {
       const raw = location.hash.slice(1);
@@ -933,38 +571,40 @@
         return;
       }
 
-      const [kind, encoded] = raw.split('/');
-      const value = encoded ? decodeURIComponent(encoded) : '';
+      const [kind, encoded] = raw.split("/");
+      const value = encoded ? decodeURIComponent(encoded) : "";
 
-      if (kind === 'category' && value) {
-        currentCategoryKey = value;
-        const filtered = nutrientsData.filter(item => item.category === value);
+      if (kind === "category" && value) {
+        const categoryKey = value;
+        currentCategoryKey = categoryKey;
+        const filtered = nutrientsData.filter(item => item.category === categoryKey);
         renderNutrientCards(filtered, true);
         return;
       }
 
-      if (kind === 'item' && value) {
+      if (kind === "item" && value) {
         const item = nutrientsData.find(entry => entry.id === value);
         if (item) {
           currentCategoryKey = item.category;
           renderNutrientCards([item], true);
           setTimeout(() => {
             const btn = document.getElementById(`btn-${item.id}`);
-            const box = document.getElementById(`details-${item.id}`);
-            if (btn && box && !box.classList.contains('open')) {
+            const details = document.getElementById(`details-${item.id}`);
+            if (btn && details && !details.classList.contains("open")) {
               btn.click();
             }
-          }, 30);
+          }, 20);
           return;
         }
       }
 
-      if (kind === 'search' && value) {
-        document.getElementById('searchInput').value = value;
-        const filtered = nutrientsData.filter(item =>
-          item.name.toLowerCase().includes(value.toLowerCase()) ||
-          item.funktion.toLowerCase().includes(value.toLowerCase()) ||
-          item.category.toLowerCase().includes(value.toLowerCase())
+      if (kind === "search" && value) {
+        const query = decodeURIComponent(value);
+        document.getElementById("searchInput").value = query;
+        const filtered = nutrientsData.filter(item => 
+          item.name.toLowerCase().includes(query.toLowerCase()) ||
+          item.funktion.toLowerCase().includes(query.toLowerCase()) ||
+          item.category.toLowerCase().includes(query.toLowerCase())
         );
         renderNutrientCards(filtered, true);
         return;
@@ -973,7 +613,7 @@
       showHome();
     }
 
-    window.addEventListener('hashchange', handleHash);
+    window.addEventListener("hashchange", handleHash);
     handleHash();
   </script>
 </body>
