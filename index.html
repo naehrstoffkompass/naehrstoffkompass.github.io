@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Nährstoffkompass — sachliche Orientierung zu Nährstoffen, Wirkungen und Verträglichkeit.">
+  <title>Nährstoffkompass</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" role="banner">
+   <div class="site-header-inner">
+    <div>
+     <button type="button" id="brand-button" class="brand"><span>Nährstoffkompass</span></button>
+     <p class="tagline">Sachliche Orientierung zu Nährstoffen, Wirkungen und Verträglichkeit.</p>
+    </div>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+     <button type="button" class="nav-link" id="nav-home-btn">Startseite</button>
+     <button type="button" class="nav-link" id="nav-imprint-btn">Impressum</button>
+    </nav>
+   </div>
+  </header>
+
+  <main id="main" class="main-shell" tabindex="-1" role="main"></main>
+
+  <footer class="site-footer" role="contentinfo">
+   <div class="footer-content">
+    <div class="footer-links" role="navigation" aria-label="Footer Links">
+     <button type="button" id="footer-imprint-link">Impressum</button>
+     <button type="button" id="footer-home-link">Startseite</button>
+    </div>
+    <p>Hinweis: Die Inhalte dienen der allgemeinen Information und ersetzen keine ärztliche oder pharmazeutische Beratung. Dosierungen und Verträglichkeit können individuell abweichen.</p>
+   </div>
+  </footer>
+
+  <template id="category-template">
+   <article class="tile">
+    <div class="tile-body">
+     <h2 data-template-id="category-title" class="tile-title"></h2>
+     <p data-template-id="category-count" class="tile-count"></p>
+     <button data-template-id="category-open" class="action" type="button">Kategorie öffnen</button>
+    </div>
+   </article>
+  </template>
+
+  <template id="substance-template">
+   <article class="tile">
+    <div class="illustration" aria-hidden="true"></div>
+    <div class="tile-body">
+     <h2 data-template-id="substance-title" class="tile-title"></h2>
+     <p data-template-id="substance-description" class="tile-desc"></p>
+     <button data-template-id="substance-open" class="action" type="button">Stoff entdecken</button>
+    </div>
+   </article>
+  </template>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
