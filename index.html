@@ -129,24 +129,22 @@
       display: inline-block;
     }
 
-    /* NÄHRSTOFF KARTE */
+    /* KOMPAKTE NÄHRSTOFF KARTE */
     .nutrient-card {
       background: var(--card-bg);
       border-radius: 14px;
       border: 1px solid var(--border);
-      padding: 20px;
-      margin-bottom: 25px;
+      padding: 18px;
+      margin-bottom: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
     .nutrient-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
-    .nutrient-card-header h3 { font-size: 1.3rem; color: var(--primary); }
+    .nutrient-card-header h3 { font-size: 1.2rem; color: var(--primary); }
     .category-tag {
       background: var(--primary-light);
       color: var(--accent);
@@ -156,46 +154,76 @@
       font-weight: 600;
     }
 
-    .nutrient-section { margin-bottom: 14px; }
+    .short-desc {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .toggle-details-btn {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* AUSKLAPPBARE DETAILS */
+    .details-content {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--border);
+    }
+    .details-content.open {
+      display: block;
+    }
+
+    .nutrient-section { margin-bottom: 12px; }
     .nutrient-section h4 {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--text-muted);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
-    .nutrient-section p { font-size: 0.95rem; }
+    .nutrient-section p { font-size: 0.92rem; }
 
     .food-box {
       background: #f0f4f1;
       border-left: 4px solid var(--primary);
-      padding: 12px 15px;
+      padding: 10px 12px;
       border-radius: 6px;
-      margin-top: 15px;
+      margin-top: 12px;
     }
     .food-box h4 {
       color: var(--primary);
-      font-size: 0.9rem;
-      margin-bottom: 4px;
+      font-size: 0.85rem;
+      margin-bottom: 3px;
       font-weight: bold;
     }
 
     .shop-box {
       border: 1px solid var(--border);
-      padding: 15px;
+      padding: 12px;
       border-radius: 10px;
-      margin-top: 15px;
+      margin-top: 12px;
       background: #fff;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .shop-box-text h4 { font-size: 0.95rem; color: var(--text-main); }
-    .shop-box-text p { font-size: 0.8rem; color: var(--text-muted); }
+    .shop-box-text h4 { font-size: 0.9rem; color: var(--text-main); }
+    .shop-box-text p { font-size: 0.78rem; color: var(--text-muted); }
     .shop-btn {
       background: var(--primary);
       color: white;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
       text-decoration: none;
       font-size: 0.85rem;
@@ -226,7 +254,7 @@
 
   <main role="main">
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Stoff suchen (z.B. Kreatin, Magnesium, Vitamin D)..." oninput="handleSearch()">
+      <input type="text" id="searchInput" placeholder="Stoff suchen (z.B. Vitamin D, Magnesium, Kreatin)..." oninput="handleSearch()">
     </div>
 
     <div id="contentView"></div>
@@ -341,6 +369,15 @@
         tagesbedarf: "Ca. 20 µg (800 IE) bei fehlender Sonnenbestrahlung.",
         quellen: "Sonnenlicht (UVB), Lachs, Makrele, Eigelb."
       },
+      {
+        id: "vitamin-k2",
+        name: "Vitamin K2 (Menachinon)",
+        category: "Vitamine",
+        funktion: "Steuert die Verwertung von Kalzium in Knochen und schützt Gefäße.",
+        mangel: "Erhöhte Blutungsneigung, geschwächte Knochen.",
+        tagesbedarf: "Ca. 60–80 µg pro Tag.",
+        quellen: "Fermentierte Speisen (Natto), Hartkäse, Eigelb, Butter."
+      },
 
       // --- MINERALSTOFFE ---
       {
@@ -405,12 +442,16 @@
       }
     ];
 
+    let currentCategoryKey = null;
+
     function showHome() {
+      currentCategoryKey = null;
       document.getElementById("searchInput").value = "";
+      location.hash = "";
       const container = document.getElementById("contentView");
       container.innerHTML = `
         <h2 class="hero-title">Sieben Bereiche. Klare Orientierung.</h2>
-        <p class="hero-sub">Entdecke alle Nährstoffe, transparent erklärt und mit Empfehlungen versehen.</p>
+        <p class="hero-sub">Entdecke alle Nährstoffe, transparent erklärt und übersichtlich gegliedert.</p>
         <div class="groups-grid">
           ${categoriesData.map(cat => `
             <div class="group-card">
@@ -424,8 +465,30 @@
     }
 
     function openCategory(categoryKey) {
+      currentCategoryKey = categoryKey;
+      location.hash = "category/" + encodeURIComponent(categoryKey);
       const filtered = nutrientsData.filter(item => item.category === categoryKey);
       renderNutrientCards(filtered, true);
+    }
+
+    function toggleDetails(id) {
+      const detailsEl = document.getElementById(`details-${id}`);
+      const btnEl = document.getElementById(`btn-${id}`);
+      const isOpen = detailsEl.classList.contains("open");
+
+      if (isOpen) {
+        detailsEl.classList.remove("open");
+        btnEl.innerHTML = "▼ Details & Quellen anzeigen";
+        if (currentCategoryKey) {
+          location.hash = "category/" + encodeURIComponent(currentCategoryKey);
+        } else {
+          location.hash = "";
+        }
+      } else {
+        detailsEl.classList.add("open");
+        btnEl.innerHTML = "▲ Details ausblenden";
+        location.hash = "item/" + encodeURIComponent(id);
+      }
     }
 
     function renderNutrientCards(items, showBackBtn = false) {
@@ -447,34 +510,35 @@
               <span class="category-tag">${item.category}</span>
             </div>
             
-            <div class="nutrient-section">
-              <h4>Wofür wird es benötigt?</h4>
-              <p>${item.funktion}</p>
-            </div>
+            <p class="short-desc">${item.funktion}</p>
 
-            <div class="nutrient-section">
-              <h4>Mögliche Symptome bei Mangel</h4>
-              <p>${item.mangel}</p>
-            </div>
+            <button class="toggle-details-btn" id="btn-${item.id}" onclick="toggleDetails('${item.id}')">
+              ▼ Details & Quellen anzeigen
+            </button>
 
-            <div class="nutrient-section">
-              <h4>Empfohlene Tagesdosis</h4>
-              <p><strong>${item.tagesbedarf}</strong></p>
-            </div>
-
-            <!-- NATÜRLICHE LEBENSMITTEL-QUELLEN TABELLE -->
-            <div class="food-box">
-              <h4>🥦 Natürliche Lebensmittel-Quellen:</h4>
-              <p>${item.quellen}</p>
-            </div>
-
-            <!-- AFFILIATE SHOP BOX -->
-            <div class="shop-box">
-              <div class="shop-box-text">
-                <h4>🛒 Empfohlenes Produkt (*Werbung)</h4>
-                <p>Laborgeprüfte Qualität & hohe Bioverfügbarkeit</p>
+            <div class="details-content" id="details-${item.id}">
+              <div class="nutrient-section">
+                <h4>Mögliche Symptome bei Mangel</h4>
+                <p>${item.mangel}</p>
               </div>
-              <a href="#" rel="sponsored noopener" class="shop-btn">Zum Shop</a>
+
+              <div class="nutrient-section">
+                <h4>Empfohlene Tagesdosis</h4>
+                <p><strong>${item.tagesbedarf}</strong></p>
+              </div>
+
+              <div class="food-box">
+                <h4>🥦 Natürliche Lebensmittel-Quellen:</h4>
+                <p>${item.quellen}</p>
+              </div>
+
+              <div class="shop-box">
+                <div class="shop-box-text">
+                  <h4>🛒 Empfohlenes Produkt (*Werbung)</h4>
+                  <p>Laborgeprüfte Qualität & hohe Bioverfügbarkeit</p>
+                </div>
+                <a href="#" rel="sponsored noopener" class="shop-btn">Zum Shop</a>
+              </div>
             </div>
           </article>
         `).join("")}
@@ -482,21 +546,74 @@
     }
 
     function handleSearch() {
-      const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-      if (!searchTerm) {
+      const searchTerm = document.getElementById("searchInput").value.trim();
+      const normalized = searchTerm.toLowerCase();
+
+      if (!normalized) {
         showHome();
         return;
       }
+
+      location.hash = "search/" + encodeURIComponent(searchTerm);
       const filtered = nutrientsData.filter(item => 
-        item.name.toLowerCase().includes(searchTerm) || 
-        item.funktion.toLowerCase().includes(searchTerm) ||
-        item.category.toLowerCase().includes(searchTerm)
+        item.name.toLowerCase().includes(normalized) || 
+        item.funktion.toLowerCase().includes(normalized) ||
+        item.category.toLowerCase().includes(normalized)
       );
       renderNutrientCards(filtered, true);
     }
 
-    // Start mit der Gruppen-Übersicht
-    showHome();
+    function handleHash() {
+      const raw = location.hash.slice(1);
+      if (!raw) {
+        showHome();
+        return;
+      }
+
+      const [kind, encoded] = raw.split("/");
+      const value = encoded ? decodeURIComponent(encoded) : "";
+
+      if (kind === "category" && value) {
+        const categoryKey = value;
+        currentCategoryKey = categoryKey;
+        const filtered = nutrientsData.filter(item => item.category === categoryKey);
+        renderNutrientCards(filtered, true);
+        return;
+      }
+
+      if (kind === "item" && value) {
+        const item = nutrientsData.find(entry => entry.id === value);
+        if (item) {
+          currentCategoryKey = item.category;
+          renderNutrientCards([item], true);
+          setTimeout(() => {
+            const btn = document.getElementById(`btn-${item.id}`);
+            const details = document.getElementById(`details-${item.id}`);
+            if (btn && details && !details.classList.contains("open")) {
+              btn.click();
+            }
+          }, 20);
+          return;
+        }
+      }
+
+      if (kind === "search" && value) {
+        const query = decodeURIComponent(value);
+        document.getElementById("searchInput").value = query;
+        const filtered = nutrientsData.filter(item => 
+          item.name.toLowerCase().includes(query.toLowerCase()) ||
+          item.funktion.toLowerCase().includes(query.toLowerCase()) ||
+          item.category.toLowerCase().includes(query.toLowerCase())
+        );
+        renderNutrientCards(filtered, true);
+        return;
+      }
+
+      showHome();
+    }
+
+    window.addEventListener("hashchange", handleHash);
+    handleHash();
   </script>
 </body>
 </html>
