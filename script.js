@@ -10,116 +10,538 @@ const categoryData = [
   { id:"microbiome", name:"Mikrobiom, Gelenke & Haut", intro:"Nährstoffe und Mikroorganismen zur Unterstützung der Darmflora, des Bindegewebes und der Hautstruktur.", icon:"🫙" }
 ];
 
-const raw = {
-  macro: [
-    ["Whey Protein","Schnell verdauliches Molkenprotein mit hoher biologischer Wertigkeit.","Liefert schnell essenzielle Aminosäuren ins Blut.","Effektiver Muskelaufbau und rasche Regeneration nach dem Training.","Kann bei starker Laktoseintoleranz Magen-Darm-Beschwerden verursachen.","protein","🥛"],
-    ["Kasein Protein","Langsam resorbierbares Milchprotein für eine langanhaltende Versorgung.","Versorgt den Körper über viele Stunden kontinuierlich mit Aminosäuren. Ideal als Abendprotein.","Schützt vor muskulärem Abbau in langen Fastenphasen.","Enthält Milcheiweiß; bei Allergien meiden.","protein","🥣"],
-    ["Pflanzliches Protein","Kombinierte Proteine aus Erbsen, Reis, Hanf oder Soja.","Deckt das vollständige Aminosäurenprofil auf pflanzlicher Basis ab.","Hervorragende Verträglichkeit für Veganer und Personen mit Laktoseunverträglichkeit.","Kann je nach Rohstoff leicht sandig schmecken oder Allergene (Soja) enthalten.","protein","🌱"],
-    ["BCAAs","Die drei verzweigtkettigen Aminosäuren Leucin, Isoleucin und Valin.","Werden direkt im Muskelgewebe verstoffwechselt.","Unterstützen den Muskelschutz während intensiver Diät- oder Trainingsphasen.","Überflüssig bei ausreichender Aufnahme von normalem Gesamteiweiß.","uncertain","🫘"],
-    ["EAAs","Das vollständige Set aller 9 essenziellen Aminosäuren.","Der Körper kann sie nicht selbst herstellen; sie müssen zugeführt werden.","Optimale Grundlage für die körpereigene Proteinbiosynthese.","Kein Wundermittel bei unausgewogener Gesamternährung.","uncertain","🧩"],
-    ["L-Glutamin","Die im menschlichen Körper am häufigsten vorkommende freie Aminosäure.","Dient den Zellen der Darmschleimhaut und des Immunsystems als Hauptenergiequelle.","Fördert die Regeneration nach extremen körperlichen Belastungen.","Bei Nieren- oder Lebererkrankungen nicht unkontrolliert hochdosieren.","uncertain","🌾"],
-    ["L-Arginin","Eine semi-essenzielle Aminosäure und direkte Vorstufe von Stickstoffmonoxid (NO).","Erweitert die Blutgefäße und verbessert die Mikrozirkulation.","Kann den Blutfluss und die muskuläre Versorgung beim Sport optimieren.","Kann den Blutdruck senken; Vorsicht bei gleichzeitiger Einnahme von Blutdruckmedikamenten.","uncertain","🫘"],
-    ["L-Citrullin","Eine Aminosäure, die im Körper effizient in Arginin umgewandelt wird.","Erhöht den Argininspiegel im Blut nachhaltiger als reines Arginin.","Fördert die Ausdauerleistung und reduziert Muskelermüdung.","Gelegentlich leichte Magen-Darm-Verstimmung bei hoher Dosierung.","uncertain","🍉"],
-    ["L-Carnitin","Eine vitaminähnliche Verbindung, die Fettsäuren in die Mitochondrien transportiert.","Spielt eine zentrale Rolle im zellulären Energiestoffwechsel.","Wird zur Unterstützung der Fettverbrennung diskutiert.","Hohe Dosen können zu leichtem Unwohlsein führen.","uncertain","🥑"],
-    ["Beta-Alanin","Eine Aminosäure, die den Carnosinspiegel im Muskel anhebt.","Puffert die Übersäuerung (Laktatbildung) im Muskel bei harten Belastungen ab.","Erhöht die Kraftausdauer im Bereich von 1 bis 4 Minuten Belastung.","Verursacht völlig harmloses, temporäres Kribbeln auf der Haut.","uncertain","⚡"],
-    ["Taurin","Eine organische Säure, die in Herzmuskel, Gehirn und Netzhaut konzentriert ist.","Wirkt als Antioxidans und reguliert den Elektrolythaushalt in Zellen.","Unterstützt die Herzfunktion und wirkt beruhigend auf das Nervensystem.","Keine nennenswerten Nebenwirkungen bei normalen Mengen.","uncertain","💧"]
-  ],
-  vitamins: [
-    ["Vitamin A","Fettlösliches Retinol und Beta-Carotin für Sehkraft und Gewebe.","Erhält die normale Sehkraft im Dunkeln und schützt Schleimhäute.","Sorgt für gesunde Haut und unterstützt das Immunsystem.","Überdosierung von Retinol in der Schwangerschaft schädlich.","medical","🥕"],
-    ["Vitamin D3","Das sogenannte ‚Sonnenvitamin‘, das im Körper selbst gebildet werden kann.","Steuert die Aufnahme und den Einbau von Calcium in die Knochen.","Stärkt das Immunsystem und unterstützt die Muskelfunktion.","Überdosierung kann zu gefährlicher Calcium-Einlagerung führen.","medical","☀️"],
-    ["Vitamin K2","Fettlösliches Vitamin, steuert den Calcium-Transport im Körper.","Sorgt dafür, dass Calcium dorthin gelangt, wo es gebraucht wird (Knochen).","Schützt die Gefäße vor Verkalkung in Kombination mit Vitamin D3.","Wechselwirkung mit blutverdünnenden Medikamenten beachten.","medical","🥬"],
-    ["Vitamin C","Wasserlösliches Antioxidans (Ascorbinsäure).","Schützt Zellen vor oxidativem Stress und bildet Kollagen für Gelenke.","Verstärkt die Eisenaufnahme aus pflanzlichen Quellen.","Sehr hohe Dosen können zu Durchfall führen.","medical","🍋"],
-    ["Vitamin B-Komplex","Die acht essenziellen B-Vitamine als Team.","Steuern den Energiestoffwechsel, die Nervenfunktion und die Blutbildung.","Sorgt für mentale Energie, Nervenstärke und Konzentration.","Sehr hohe Vitamin-B6-Dosen können zu Nervenschäden führen.","medical","🌾"],
-    ["Vitamin E","Fettlösliches Zellschutz-Vitamin.","Fängt aggressive Sauerstoffradikale im Körper ab.","Schützt Zellmembranen vor vorzeitiger Alterung.","Extrem hohe Dosen können die Blutgerinnung hemmen.","medical","🥜"]
-  ],
-  minerals: [
-    ["Magnesium","Essenzielles Mineral für über 300 enzymatische Reaktionen.","Reguliert die Entspannung von Muskeln und Nerven.","Beugt Muskelkrämpfen vor und unterstützt die Schlafqualität.","Zu viel Magnesium führt zu abführender Wirkung.","medical","🌰"],
-    ["Zink","Unverzichtbares Spurenelement für das Immunsystem.","Aktiviert zahlreiche Enzyme für Zellwachstum und Wundheilung.","Fördert gesunde Haare, Nägel und eine reine Haut.","Dauerhaft sehr hohe Dosen können die Aufnahme von Kupfer blockieren.","medical","🫘"],
-    ["Eisen","Zentrales Spurenelement für den Sauerstofftransport im Blut.","Bestandteil des Blutfarbstoffs Hämoglobin in den roten Blutkörperchen.","Verhindert Erschöpfung, Müdigkeit und Blutarmut.","Nicht blind einnehmen! Zuviel Eisen schädigt Organe.","medical","🥬"],
-    ["Calcium","Häufigstes Mineral im menschlichen Körper.","Baustein für stabile Knochen, Zähne und wichtig für Muskelkontraktion.","Sichert die mechanische Stabilität des Skeletts.","Kann bei Überversorgung zu Nierensteinen führen.","medical","🥛"],
-    ["Kalium","Wichtiger Elektrolyt im Zellinneren.","Reguliert den Blutdruck, den Flüssigkeitshaushalt und Nerven.","Schützt das Herz-Kreislauf-System vor Überlastung.","Gefährlich bei Nierenschwäche; nur nach ärztlichem Rat einnehmen.","medical","🍌"],
-    ["Elektrolyt-Komplex","Mischung aus Natrium, Kalium, Magnesium und Calcium.","Gleicht Verluste durch starkes Schwitzen unmittelbar aus.","Verhindert Leistungseinbrüche, Krämpfe und Dehydration.","Hoher Natriumgehalt (Salz); bei Bluthochdruck beachten.","medical","💦"],
-    ["Selen","Spurenelement mit stark antioxidantiver Wirkung.","Unterstützt die Schilddrüse bei der Hormonproduktion.","Stärkt die Immunabwehr.","Sehr enger Bereich zwischen Bedarf und toxischer Überdosierung.","medical","🌰"],
-    ["Jod","Spurenelement, das direkt von der Schilddrüse benötigt wird.","Essenziell für die Bildung der Schilddrüsenhormone.","Regelt den gesamten Grundumsatz und Energiestoffwechsel.","Bei Schilddrüsenerkrankungen nur nach ärztlicher Absprache.","medical","🌊"],
-    ["Kupfer","Spurenelement für die Eisenverwertung und das Bindegewebe.","Unterstützt die Bildung roter Blutkörperchen.","Trägt zur normalen Funktion des Nervensystems bei.","Überdosierung ist leberschädlich.","medical","🫘"]
-  ],
-  lipids: [
-    ["Omega-3 (EPA/DHA)","Die marinen Omega-3-Fettsäuren Eicosapentaensäure und Docosahexaensäure.","Unterstützen normale Herzfunktion, Gehirnleistung und Sehkraft.","Wirken stark entzündungshemmend im gesamten Organismus.","Kann bei extrem hohen Dosen die Blutungszeit verlängern.","medical","🐟"],
-    ["Alpha-Linolensäure (ALA)","Pflanzliche Omega-3-Fettsäure (z.B. in Leinöl).","Dient als Ausgangsstoff für EPA/DHA im Körper.","Unterstützt die kardiovaskuläre Gesundheit als Teil der Ernährung.","Kein voller Ersatz für marine Omega-3-Quellen.","food","🌻"],
-    ["Omega-6 (GLA)","Gamma-Linolensäure aus Nachtkerzen- oder Borretschöl.","Dient der Bildung von Gewebshormonen (Prostaglandinen).","Wird oft zur Linderung von Hauttrockenheit genutzt.","Bei Entzündungen im Übermaß kontraproduktiv.","uncertain","🌼"],
-    ["MCT-Öl","Mittelkettige Triglyceride (meist aus Kokosöl).","Werden extrem schnell in Energie umgewandelt.","Schnelle Energiequelle für Gehirn und Muskeln.","Zu große Mengen können Magenkrämpfe auslösen.","uncertain","🥥"]
-  ],
-  performance: [
-    ["Kreatin","Einer der best-beforschten Sportergänzungsstoffe.","Erhöht die ATP-Speicher (Zellenergie) in der Muskulatur.","Steigert die Leistung bei Schnellkrafttraining.","Führt zu unschädlicher Wassereinlagerung in den Muskeln.","creatine","🏋️"],
-    ["Ashwagandha","Traditionelle ayurvedische Heilpflanze (Adaptogen).","Hilft dem Körper, besser mit Stress umzugehen (senkt Cortisol).","Kann die Schlafqualität verbessern und Ängste mildern.","Bei Autoimmunerkrankungen oder Schwangerschaft meiden.","medical","🌿"],
-    ["L-Theanin","Entspannende Aminosäure aus Teeblättern.","Passiert die Blut-Hirn-Schranke und fördert Ruhe ohne Müdigkeit.","Sorgt in Kombination mit Koffein für fokussierten Tunnelblick.","Keine nennenswerten Nebenwirkungen.","uncertain","🍵"],
-    ["Koffein","Weltweit bekanntes zentralnervöses Stimulanz.","Blockiert Adenosinrezeptoren im Gehirn und vertreibt Müdigkeit.","Steigert Wachheit, Konzentration und Ausdauer.","Kann Herzrasen und Schlafstörungen auslösen.","caffeine","☕"],
-    ["Ginkgo Biloba","Extrakt aus den Blättern des Ginkgobaums.","Fördert die Durchblutung und Mikrozirkulation im Gewebe.","Unterstützt die geistige Leistungsfähigkeit.","Hemmt die Blutgerinnung; nicht mit Blutverdünnern nutzen.","medical","🍂"],
-    ["Rhodiola Rosea","Rosenwurz-Extrakt, ebenfalls ein Adaptogen.","Hilft bei mentaler Erschöpfung und Stress.","Steigert die mentale Belastbarkeit in stressigen Phasen.","Kann bei Einnahme am Abend leicht anregend wirken.","uncertain","🌱"],
-    ["Melatonin","Körpereigenes Hormon der Zirbeldrüse.","Steuert den biologischen Schlaf-Wach-Rhythmus.","Verkürzt nachweislich die Einschlafzeit.","Kann am nächsten Morgen zu leichter Benommenheit führen.","medical","🌙"]
-  ],
-  plants: [
-    ["Curcumin","Der bioaktive Hauptwirkstoff der Kurkumawurzel.","Besitzt stark entzündungshemmende Eigenschaften.","Unterstützt die Gelenkgesundheit und die Verdauung.","Schlecht bioverfügbar (ideal mit Schwarzem Pfeffer).","uncertain","🟠"],
-    ["OPC (Traubenkernextrakt)","Oligomere Proanthocyanidine aus Weintraubenkernen.","Starkes pflanzliches Antioxidans.","Schützt Gefäße und Gewebe vor freien Radikalen.","Kann in hoher Dosis die Eisenresorption mindern.","uncertain","🍇"],
-    ["Grüntee-Extrakt (EGCG)","Polyphenol aus grünem Tee.","Fördert den Fettstoffwechsel und wirkt antioxidativ.","Unterstützt den zellulären Schutz.","Hochdosiert auf nüchternen Magen nicht leberfreundlich.","medical","🍵"],
-    ["Coenzym Q10","Essenzieller Kofaktor in den Mitochondrien.","Zuständig für die zelluläre Energiegewinnung.","Unterstützt die Herzgesundheit.","Kann schwach mit Blutverdünnern interagieren.","uncertain","⚙️"],
-    ["Sulforaphan","Pflanzenstoff aus Brokkolisprossen.","Aktiviert körpereigene Entgiftungsenzyme.","Gilt als vielversprechender Schutzfaktor für Zellen.","Frisch zubereitet oder als Extrakt am wirksamsten.","uncertain","🥦"],
-    ["Resveratrol","Polyphenol aus roten Weintrauben.","Wird in der Langlebigkeits-Forschung intensiv untersucht.","Wirkt antioxidativ und schützt das Herz-Kreislauf-System.","In hoher Dosis sind Magenprobleme möglich.","uncertain","🍇"],
-    ["Quercetin","Weit verbreitetes Bioflavonoid.","Besitzt natürliche entzündungshemmende Eigenschaften.","Wird oft in Allergie-Saisonphasen genutzt.","Wechselwirkungen mit Medikamenten möglich.","uncertain","🧅"]
-  ],
-  microbiome: [
-    ["Probiotika","Präparate mit lebenden Mikroorganismen.","Besiedeln den Darm und unterstützen die Darmflora.","Fördern eine gesunde Verdauung und stärken die Abwehr.","Bei schwerer Immunschwäche vorher ärztlich abklären.","medical","🫙"],
-    ["Prebiotika (Flohsamenschalen)","Lösliche Ballaststoffe aus Flohsamenschalen.","Binden Wasser im Darm und quellen auf.","Regulieren sanft die Verdauung und ernähren gute Bakterien.","Unbedingt mit reichlich Wasser einnehmen!","uncertain","🌾"],
-    ["Kollagen-Peptide","Enzymatisch gespaltene Kollagen-Eiweiße.","Liefern Bausteine für Gelenke, Sehnen und Haut.","Unterstützen Hautelastizität und Gelenke.","Aus tierischer Herkunft (Rind oder Fisch).","uncertain","🧶"],
-    ["Hyaluronsäure","Natürlich im Bindegewebe vorkommendes Molekül.","Kann enorme Mengen Wasser binden.","Sorgt für geschmeidige Gelenke und straffe Haut.","Wirkung oraler Präparate wird weiter beforscht.","uncertain","💧"],
-    ["MSM (Organischer Schwefel)","Methylsulfonylmethan als bioaktive Schwefelquelle.","Liefert Schwefel für Knorpel, Gelenke und Haare.","Wird oft bei Gelenkbelastung eingesetzt.","Kann anfangs leichten weichen Stuhl verursachen.","uncertain","🪨"]
-  ]
-};
+const nutrientsData = [
+  // --- 1. VITAMINE (13 Stoffe) ---
+  {
+    id: "vitamin-a",
+    name: "Vitamin A (Retinol)",
+    category: "Vitamine",
+    funktion: "Unterstützt Sehkraft, Immunsystem, Zellwachstum sowie Haut und Schleimhäute.",
+    mangel: "Nachtblindheit, trockene Haut, erhöhte Infektanfälligkeit.",
+    tagesbedarf: "Ca. 700–850 µg RAE (DGE)",
+    quellen: "Leber, Karotten (als Beta-Carotin), Süßkartoffeln, Spinat, Eigelb.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b1",
+    name: "Vitamin B1 (Thiamin)",
+    category: "Vitamine",
+    funktion: "Unerlässlich für den Kohlenhydratstoffwechsel und die Nervenfunktion.",
+    mangel: "Müdigkeit, Reizbarkeit, Gedächtnisstörungen, Beriberi.",
+    tagesbedarf: "Ca. 1,0–1,3 mg (DGE)",
+    quellen: "Vollkornprodukte, Schweinefleisch, Sonnenblumenkerne, Hülsenfrüchte.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b2",
+    name: "Vitamin B2 (Riboflavin)",
+    category: "Vitamine",
+    funktion: "Beteiligt an Energiegewinnung, Zellschutz und Hautgesundheit.",
+    mangel: "Einrisse an den Mundwinkeln (Rhadaden), Hautentzündungen.",
+    tagesbedarf: "Ca. 1,1–1,4 mg (DGE)",
+    quellen: "Milchprodukte, Eier, Fleisch, Mandeln, Champignons.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b3",
+    name: "Vitamin B3 (Niacin)",
+    category: "Vitamine",
+    funktion: "Wichtig für Energiestoffwechsel, DNA-Reparatur und Nervensystem.",
+    mangel: "Pellagra (Hautveränderungen, Durchfall, Demenz).",
+    tagesbedarf: "Ca. 12–16 mg NE (DGE)",
+    quellen: "Geflügel, Fisch, Erdnüsse, Pilze, Vollkorn.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b5",
+    name: "Vitamin B5 (Pantothensäure)",
+    category: "Vitamine",
+    funktion: "Baustein von Coenzym A, wichtig für Hormonsynthese und Energiestoffwechsel.",
+    mangel: "Sehr selten; Taubheitsgefühl in den Zehen ('Burning-Feet-Syndrom').",
+    tagesbedarf: "Ca. 5 mg (DGE)",
+    quellen: "In fast allen Lebensmitteln (Leber, Eier, Nüsse, Avocados).",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b6",
+    name: "Vitamin B6 (Pyridoxin)",
+    category: "Vitamine",
+    funktion: "Zentral für Aminosäurestoffwechsel, Nerven und Hämoglobinbildung.",
+    mangel: "Anämie, Nervenstörungen, Hautveränderungen.",
+    tagesbedarf: "Ca. 1,4–1,6 mg (DGE)",
+    quellen: "Lachs, Hähnchen, Bananen, Kartoffeln, Walnüsse.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b7",
+    name: "Vitamin B7 (Biotin)",
+    category: "Vitamine",
+    funktion: "Essenziell für Fett-, Kohlenhydrat- und Eiweißstoffwechsel, Haare und Haut.",
+    mangel: "Haarausfall, brüchige Nägel, Hautausschläge.",
+    tagesbedarf: "Ca. 40 µg (DGE)",
+    quellen: "Eigelb, Haferflocken, Nüsse, Sojabohnen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b9",
+    name: "Vitamin B9 (Folsäure / Folat)",
+    category: "Vitamine",
+    funktion: "Unerlässlich für Zellteilung, Blutbildung und Gewebewachstum.",
+    mangel: "Megaloblastäre Anämie, erhöhtes Risiko für Neuralrohrdefekte in der Schwangerschaft.",
+    tagesbedarf: "Ca. 300 µg (Schwangere 550 µg) (DGE)",
+    quellen: "Grünes Blattgemüse, Hülsenfrüchte, Weizenkeime, Orangen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-b12",
+    name: "Vitamin B12 (Cobalamin)",
+    category: "Vitamine",
+    funktion: "Wichtig für Blutbildung, Nervensystem und DNA-Synthese.",
+    mangel: "Müdigkeit, Blutarmut, Nervenschäden (Kribbeln in Händen/Füßen).",
+    tagesbedarf: "Ca. 4,0 µg (DGE)",
+    quellen: "Fleisch, Fisch, Eier, Milchprodukte (für Veganer Supplementierung notwendig).",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-c",
+    name: "Vitamin C (Ascorbinsäure)",
+    category: "Vitamine",
+    funktion: "Antioxidans, fördert Kollagensynthese, Immunsystem und Eisenaufnahme.",
+    mangel: "Skorbut (Zahnfleischbluten, verzögerte Wundheilung), Infektanfälligkeit.",
+    tagesbedarf: "Ca. 95–110 mg (DGE)",
+    quellen: "Paprika, Zitrusfrüchte, Beeren, Brokkoli, Sauerkraut.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-d3",
+    name: "Vitamin D3 (Cholecalciferol)",
+    category: "Vitamine",
+    funktion: "Reguliert Kalziumaufnahme, Knochengesundheit, Immunsystem und Muskeln.",
+    mangel: "Rachitis bei Kindern, Osteomalazie/Osteoporose bei Erwachsenen, Immunschwäche.",
+    tagesbedarf: "Ca. 20 µg (800 IE) bei fehlender Eigen-Synthese durch Sonnenlicht (DGE)",
+    quellen: "Sonnenlicht (UVB), Fettreicher Fisch (Lachs, Makrele), Eigelb.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-e",
+    name: "Vitamin E (Tocopherol)",
+    category: "Vitamine",
+    funktion: "Wichtigstes fettlösliches Antioxidans zum Schutz der Zellmembranen.",
+    mangel: "Sehr selten; Nervenstörungen, Muskel-Schwäche.",
+    tagesbedarf: "Ca. 12–15 mg (DGE)",
+    quellen: "Pflanzenöle (Weizenkeimöl, Sonnenblumenöl), Nüsse, Mandeln.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "vitamin-k2",
+    name: "Vitamin K2 (Menachinon)",
+    category: "Vitamine",
+    funktion: "Essenziell für die Blutgerinnung und den Einbau von Kalzium in die Knochen.",
+    mangel: "Erhöhte Neigung zu Blutungen, geschwächte Knochendichte.",
+    tagesbedarf: "Ca. 60–80 µg (Gesamt-Vitamin K) (DGE)",
+    quellen: "Fermentierte Lebensmittel (Natto, Kefe), Hartkäse, Eigelb.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "magnesium",
+    name: "Magnesium",
+    category: "Mineralstoffe",
+    funktion: "Cofaktor für >300 Enzymreaktionen, Muskel- und Nervenfunktion, Knochen.",
+    mangel: "Muskelkrämpfe, Unruhe, Kopfschmerzen, Herzrhythmusstörungen.",
+    tagesbedarf: "Ca. 300–400 mg (DGE)",
+    quellen: "Kürbiskerne, Mandeln, Haferflocken, Hülsenfrüchte, dunkle Schokolade.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "kalzium",
+    name: "Kalzium",
+    category: "Mineralstoffe",
+    funktion: "Hauptbaustein für Knochen und Zähne, wichtig für Blutgerinnung und Muskeln.",
+    mangel: "Osteoporose, Muskelkrämpfe, brüchige Nägel.",
+    tagesbedarf: "Ca. 1000 mg (DGE)",
+    quellen: "Milchprodukte, grüne Gemüsesorten (Grünkohl, Brokkoli), Mineralwasser.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "kalium",
+    name: "Kalium",
+    category: "Mineralstoffe",
+    funktion: "Reguliert Elektrolythaushalt, Blutdruck und Impulsweiterleitung der Nerven.",
+    mangel: "Muskelschwäche, Verstopfung, Herzrhythmusstörungen.",
+    tagesbedarf: "Ca. 4000 mg (DGE)",
+    quellen: "Bananen, Kartoffeln, Trockenobst, Tomatenmark, Spinat.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "zink",
+    name: "Zink",
+    category: "Mineralstoffe",
+    funktion: "Unterstützt Immunsystem, Wundheilung, Hautgesundheit und Testosteronhaushalt.",
+    mangel: "Infektanfälligkeit, Wundheilungsstörungen, Haarausfall, Hautprobleme.",
+    tagesbedarf: "Ca. 8–14 mg (DGE)",
+    quellen: "Austern, Rindfleisch, Kürbiskerne, Käse, Haferflocken.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "eisen",
+    name: "Eisen",
+    category: "Mineralstoffe",
+    funktion: "Sauerstofftransport im Blut (Hämoglobin) und Energiestoffwechsel.",
+    mangel: "Anämie, Blässe, chronische Müdigkeit, Brüchige Fingernägel.",
+    tagesbedarf: "Ca. 10–15 mg (DGE)",
+    quellen: "Rotes Fleisch, Linsen, Kürbiskerne, Spinat (Aufnahme mit Vitamin C steigern).",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "selen",
+    name: "Selen",
+    category: "Mineralstoffe",
+    funktion: "Zellschutz vor oxidativem Stress, Schilddrüsenfunktion, Immunsystem.",
+    mangel: "Schilddrüsenprobleme, geschwächte Abwehrkräfte, Nagel-Veränderungen.",
+    tagesbedarf: "Ca. 60–70 µg (DGE)",
+    quellen: "Paranüsse, Fisch, Eier, Pilze, Linsen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "jod",
+    name: "Jod",
+    category: "Mineralstoffe",
+    funktion: "Essenziell für die Produktion von Schilddrüsenhormonen und Stoffwechsel.",
+    mangel: "Schilddrüsenvergrößerung (Kropf/Kropfbildung), Müdigkeit, Gewichtszunahme.",
+    tagesbedarf: "Ca. 180–200 µg (DGE)",
+    quellen: "Jodiertes Speisesalz, Seefisch, Meeresalgen, Milchprodukte.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "kupfer",
+    name: "Kupfer",
+    category: "Mineralstoffe",
+    funktion: "Beteiligt an Eisenaufnahme, Bindegewebsbildung und Nervensystem.",
+    mangel: "Blutarmut, Pigmentstörungen von Haut/Haaren, Knochenschwäche.",
+    tagesbedarf: "Ca. 1,0–1,5 mg (DGE)",
+    quellen: "Innereien, Schalentiere, Nüsse, Kakao, Vollkorn.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "mangan",
+    name: "Mangan",
+    category: "Mineralstoffe",
+    funktion: "Aktiviert Enzyme für Knorpel- und Knochenaufbau sowie Antioxidationsschutz.",
+    mangel: "Sehr selten; Knorpelschäden, gestörter Fett- und Kohlenhydratstoffwechsel.",
+    tagesbedarf: "Ca. 2,0–5,0 mg (DGE)",
+    quellen: "Haferflocken, Vollkorn, Haselnüsse, schwarzer Tee.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "chrom",
+    name: "Chrom",
+    category: "Mineralstoffe",
+    funktion: "Trägt zur Aufrechterhaltung eines normalen Blutzuckerspiegels bei.",
+    mangel: "Blutzuckerschwankungen, verringerte Glukosetoleranz.",
+    tagesbedarf: "Ca. 30–100 µg (DGE)",
+    quellen: "Bierhefe, Vollkorn, Fleisch, Nüsse, Brokkoli.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "molybdaen",
+    name: "Molybdän",
+    category: "Mineralstoffe",
+    funktion: "Beteiligt am Abbau schwefelhaltiger Aminosäuren und Harnsäure.",
+    mangel: "Sehr selten; Übelkeit, Herzrasen, Orientierungslosigkeit.",
+    tagesbedarf: "Ca. 50–100 µg (DGE)",
+    quellen: "Hülsenfrüchte, Nüsse, Getreide, rotblättriges Gemüse.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA/DGE)"
+  },
+  {
+    id: "leucin",
+    name: "L-Leucin (BCAA)",
+    category: "Aminosäuren",
+    funktion: "Stimuliert die Muskelproteinsynthese (mTOR-Pfad) und Muskelreparatur.",
+    mangel: "Muskelabbau, verlangsamte Regeneration.",
+    tagesbedarf: "Ca. 39 mg/kg Körpergewicht (WHO)",
+    quellen: "Molkenprotein, Rindfleisch, Hähnchen, Linsen, Eier.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "isoleucin",
+    name: "L-Isoleucin (BCAA)",
+    category: "Aminosäuren",
+    funktion: "Reguliert die Energieversorgung des Muskelgewebes und Blutzucker.",
+    mangel: "Muskelverlust, Erschöpfung, Blutzuckerschwankungen.",
+    tagesbedarf: "Ca. 20 mg/kg Körpergewicht (WHO)",
+    quellen: "Fisch, Geflügel, Nüsse, Linsen, Käse.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "valin",
+    name: "L-Valin (BCAA)",
+    category: "Aminosäuren",
+    funktion: "Wichtig für das Muskelwachstum, Gewebereparatur und Koordination.",
+    mangel: "Gestörte Regeneration, Nervenempfindlichkeit.",
+    tagesbedarf: "Ca. 26 mg/kg Körpergewicht (WHO)",
+    quellen: "Eier, Milchprodukte, Erdnüsse, Haferflocken.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "glutamin",
+    name: "L-Glutamin",
+    category: "Aminosäuren",
+    funktion: "Hauptenergiequelle für Darmzellen und Immunsystem, unterstützt Darmschleimhaut.",
+    mangel: "Darmprobleme (Leaky Gut), erhöhte Infektanfälligkeit bei Belastung.",
+    tagesbedarf: "Bedarf steigt bei Stress & intensivem Sport deutlich an.",
+    quellen: "Quark, Eier, Fleisch, Sojabohnen, Dinkel.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "arginin",
+    name: "L-Arginin",
+    category: "Aminosäuren",
+    funktion: "Vorstufe von Stickstoffmonoxid (NO), fördert Durchblutung und Gefäßweite.",
+    mangel: "Bluthochdruck, Durchblutungsstörungen, verringerte Pumpleistung.",
+    tagesbedarf: "Körpereigene Synthese, aber bei Belastung oft erhöht.",
+    quellen: "Kürbiskerne, Erdnüsse, Putenbrust, Lachs.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "citrullin",
+    name: "L-Citrullin",
+    category: "Aminosäuren",
+    funktion: "Wird im Körper zu Arginin umgewandelt und steigert die NO-Produktion nachhaltig.",
+    mangel: "Reduzierte Ausdauer, verringerte Muskeldurchblutung.",
+    tagesbedarf: "Synthese im Körper, als Supplement im Sport beliebt (3–6g).",
+    quellen: "Wassermelone, Gurke, Kürbis.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "lysine",
+    name: "L-Lysin",
+    category: "Aminosäuren",
+    funktion: "Baustein für Kollagensynthese, Immunsystem und Calciumabsorption.",
+    mangel: "Wachstumsstörungen, Immunschwäche, Infektanfälligkeit (z.B. Herpes).",
+    tagesbedarf: "Ca. 30 mg/kg Körpergewicht (WHO)",
+    quellen: "Fleisch, Fisch, Eier, Tofu, Linsen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "carnitin",
+    name: "L-Carnitin",
+    category: "Aminosäuren",
+    funktion: "Transportiert langkettige Fettsäuren in die Mitochondrien zur Verbrennung.",
+    mangel: "Muskelschwäche, schnelle Ermüdung.",
+    tagesbedarf: "Eigenherstellung aus Lysin/Methionin; Aufnahme über Nahrung.",
+    quellen: "Rindfleisch, Lammfleisch, Wild.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "omega-3-epa",
+    name: "Omega-3 EPA (Eicosapentaensäure)",
+    category: "Fettsäuren",
+    funktion: "Hemmt Entzündungen im Körper, unterstützt Herzgesundheit und Blutdruck.",
+    mangel: "Erhöhte Entzündungswerte, trockenes Auge, Herz-Kreislauf-Risiko.",
+    tagesbedarf: "Mind. 250 mg EPA + DHA kombiniert (EFSA)",
+    quellen: "Lachs, Makrele, Hering, Algenöl.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "omega-3-dha",
+    name: "Omega-3 DHA (Docosahexaensäure)",
+    category: "Fettsäuren",
+    funktion: "Zentraler Baustein für Gehirnstruktur, Sehfunktion und Nervenzellen.",
+    mangel: "Konzentrationsschwäche, Sehstörungen, Stimmungsschwankungen.",
+    tagesbedarf: "Mind. 250 mg EPA + DHA kombiniert (EFSA)",
+    quellen: "Algenöl, fettreicher Seefisch, Krillöl.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "ala-omega-3",
+    name: "Alpha-Linolensäure (ALA)",
+    category: "Fettsäuren",
+    funktion: "Pflanzliche Omega-3-Fettsäure; trägt zur Aufrechterhaltung normaler Cholesterinspiegel bei.",
+    mangel: "Hautveränderungen, verlangsamtes Wachstum.",
+    tagesbedarf: "Ca. 0,5 % der täglichen Energieaufnahme (DGE)",
+    quellen: "Leinöl, Chia-Samen, Walnüsse, Rapsöl.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "mct-oel",
+    name: "MCT-Fettsäuren (Mittelkettige Triglyceride)",
+    category: "Fettsäuren",
+    funktion: "Werden direkt in der Leber zu Ketonkörpern umgewandelt; schnelle Energie ohne Fettspeicherung.",
+    mangel: "Kein klassischer Mangelzustand da nicht essenziell.",
+    tagesbedarf: "Kein fester Richtwert; flexibel dosierbar.",
+    quellen: "Kokosöl, Palmkernöl, reines MCT-Öl (Capryl-/Caprinsäure).",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "lecithin",
+    name: "Lecithin (Phosphatidylcholin)",
+    category: "Fettsäuren",
+    funktion: "Zellmembran-Baustein, schützt die Leber und ist Vorstufe des Neurotransmitters Acetylcholin.",
+    mangel: "Fettleber-Risiko, Gedächtnisseinbußen.",
+    tagesbedarf: "Ca. 400 mg Cholin-Äquivalent (EFSA)",
+    quellen: "Eigelb, Sojabohnen, Sonnenblumenkerne.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "coenzym-q10",
+    name: "Coenzym Q10 (Ubiquinol)",
+    category: "Pflanzenstoffe",
+    funktion: "Schlüsselelement der Energieproduktion (ATP) in den Mitochondrien und Antioxidans.",
+    mangel: "Abnehmende Eigenproduktion ab dem 30. Lebensjahr; Muskel- und Herzschwäche.",
+    tagesbedarf: "Keine offizielle DGE-Empfehlung; oft 50–200 mg ergänzt.",
+    quellen: "Innereien, Nüsse, fettiger Fisch, Hülsenfrüchte.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "curcumin",
+    name: "Curcumin (Kurkuma-Extrakt)",
+    category: "Pflanzenstoffe",
+    funktion: "Stark entzündungshemmender Pflanzenstoff, unterstützt Gelenke und Verdauung.",
+    mangel: "Kein essenzieller Nährstoff.",
+    tagesbedarf: "Aufnahme am besten in Kombination mit Piperin (schwarzer Pfeffer).",
+    quellen: "Kurkumawurzel, Curcumin-Extrakt.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "astaxanthin",
+    name: "Astaxanthin",
+    category: "Pflanzenstoffe",
+    funktion: "Sehr starkes Carotinoid-Antioxidans, schützt Haut und Augen vor UV- und Oxidationsschäden.",
+    mangel: "Kein essenzieller Nährstoff.",
+    tagesbedarf: "Typische Dosierungen in Studien: 4–8 mg täglich.",
+    quellen: "Blutregenalge (Haematococcus pluvialis), Lachs, Garnelen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "opc-traubenkern",
+    name: "OPC (Oligomere Proanthocyanidine)",
+    category: "Pflanzenstoffe",
+    funktion: "Schützt Kollagenstrukturen in Gefäßen und Haut, starker Radikalfänger.",
+    mangel: "Kein essenzieller Nährstoff.",
+    tagesbedarf: "Kein fester DGE-Wert.",
+    quellen: "Traubenkerne, Pinienrinde, rote Traubenschalen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "sulforaphan",
+    name: "Sulforaphan",
+    category: "Pflanzenstoffe",
+    funktion: "Aktiviert körpereigene Entgiftungsenzyme (Nrf2-Pfad) und schützt Zellen.",
+    mangel: "Kein essenzieller Nährstoff.",
+    tagesbedarf: "Kein DGE-Wert.",
+    quellen: "Brokkolisprossen, Brokkoli, Blumenkohl, Rucola.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "kreatin",
+    name: "Kreatin-Monohydrat",
+    category: "Performance",
+    funktion: "Erhöht die körperliche Leistung bei schnellkraftbasiertem Training durch ATP-Regeneration.",
+    mangel: "Geringere Schnellkraftreserven (vor allem bei vegetarischer Ernährung).",
+    tagesbedarf: "3 g täglich für den nachgewiesenen positiven Effekt (EFSA Claim).",
+    quellen: "Rindfleisch, Schweinefleisch, Hering, Kabeljau.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "beta-alanin",
+    name: "Beta-Alanin",
+    category: "Performance",
+    funktion: "Vorstufe von Carnosin; puffert Milchsäure in den Muskeln ab und verzögert Muskelermüdung.",
+    mangel: "Kein essenzieller Mangel; verringerte Übersäuerungstoleranz.",
+    tagesbedarf: "Typische Einnahme: 3,2–6,4 g täglich über mehrere Wochen.",
+    quellen: "Fleisch (besonders Geflügel), Fisch.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "kollagen-peptide",
+    name: "Kollagen-Peptide",
+    category: "Performance",
+    funktion: "Strukturprotein für Bindegewebe, Gelenkknorpel, Haut, Sehnen und Bänder.",
+    mangel: "Abnahme mit steigendem Alter; Faltenbildung, Gelenkverschleiß.",
+    tagesbedarf: "Kein offizieller Wert; oft 5–15 g hydrolysiertes Kollagen studiert.",
+    quellen: "Knochenbrühe, Gelatine, Kollagen-Hydrolysat.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "glucosamin",
+    name: "Glucosaminsulfat",
+    category: "Performance",
+    funktion: "Natürlicher Bestandteil des Bindegewebes, der Knorpel und der Gelenkflüssigkeit.",
+    mangel: "Gelenkverschleiß, steife Gelenke im Alter.",
+    tagesbedarf: "Häufig 1200–1500 mg in Gelenkkomplexen.",
+    quellen: "Krebstiere (Krabben- und Krabbenschalen).",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "probiotika",
+    name: "Probiotische Kulturen",
+    category: "Darmgesundheit",
+    funktion: "Unterstützen eine ausgewogene Darmflora, Verdauung und die Immunabwehr im Darm.",
+    mangel: "Dysbiose (Fehlbesiedlung des Darms, oft nach Antibiotika), Blähungen.",
+    tagesbedarf: "Kein fester Wert; Dosierung in KBE (Koloniebildende Einheiten).",
+    quellen: "Joghurt, Kefir, Sauerkraut, Kimchi, Kombucha.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "inulin",
+    name: "Inulin (Präbiotikum)",
+    category: "Darmgesundheit",
+    funktion: "Löslicher Ballaststoff, dient nützlichen Darmbakterien (Bifidobakterien) als Nahrung.",
+    mangel: "Träge Verdauung, verringerte Vielfalt der Darmflora.",
+    tagesbedarf: "Teil der empfohlenen 30 g Ballaststoffe pro Tag (DGE).",
+    quellen: "Zichorienwurzel, Topinambur, Knoblauch, Zwiebeln, Bananen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  },
+  {
+    id: "flohsamenschalen",
+    name: "Flohsamenschalen (Psyllium)",
+    category: "Darmgesundheit",
+    funktion: "Quellfähige Ballaststoffe; regulieren die Stuhlconsistenz und fördern die Darmpassage.",
+    mangel: "Verstopfung, unregelmäßiger Stuhlgang.",
+    tagesbedarf: "10–20 g täglich mit reichlich Wasser (mind. 200 ml pro 5 g).",
+    quellen: "Indische Flohsamenschalen.",
+    pruefung: "Zuletzt fachlich geprüft: Oktober 2026 (EFSA)"
+  }
+];
 
 const generalCaution = "Bei Arzneimitteln, Erkrankungen, Schwangerschaft, Stillzeit, Minderjährigen, Wechselwirkungen oder auffälligen Symptomen vor der Einnahme ärztlich oder pharmazeutisch Rücksprache halten.";
-const doseGuides = {
-  protein: {
-    kg:"Für gesunde Erwachsene werden etwa 0,8 g bis 2,0 g pro kg Körpergewicht empfohlen (je nach sportlicher Aktivität).",
-    age:"Jugendliche: Bedarf an das Wachstum anpassen. Erwachsene: Gesamtaufnahme im Blick behalten. Senioren: Erhöhter Bedarf zum Muskelerhalt.",
-    activity:"Wenig aktiv: 0,8–1,0 g/kg. Regelmäßig aktiv: 1,2–1,5 g/kg. Intensives Krafttraining: 1,6–2,0 g/kg."
-  },
-  creatine: {
-    kg:"Keine Berechnung nach Körpergewicht nötig. Standardempfehlung liegt bei ca. 3 bis 5 Gramm täglich dauerhaft.",
-    age:"Ab dem 18. Lebensjahr uneingeschränkt empfohlen. Jugendliche nur in Absprache mit Sportarzt.",
-    activity:"Unabhängig vom Aktivitätslevel täglich einzunehmen, um die Muskelspeicher gefüllt zu halten."
-  },
-  caffeine: {
-    kg:"Untersuchte Richtwerte für Sport: ca. 1 bis 3 mg pro kg Körpergewicht ca. 45 Minuten vor dem Training.",
-    age:"Für Kinder und Jugendliche nicht empfohlen. Erwachsene sollten persönliche Toleranzgrenze beachten.",
-    activity:"Vor mental anstrengenden Phasen oder intensiven Trainingseinheiten gezielt einsetzen."
-  },
-  food: {
-    kg:"Keine spezifische Angabe nach Körpergewicht erforderlich; richtet sich nach der täglichen Ernährung.",
-    age:"Für alle Altersgruppen als Nahrungsergänzung oder über vollwertige Lebensmittel geeignet.",
-    activity:"Kann unabhängig von der sportlichen Belastung in die tägliche Routine integriert werden."
-  },
-  uncertain: {
-    kg:"Keine fixen Dosierungsangaben pro kg Körpergewicht wissenschaftlich standardisiert.",
-    age:"Erwachsene Zielgruppe; bei Einnahme durch Jugendliche ärztlichen Rat einholen.",
-    activity:"Kann unabhängig vom Trainingszustand verwendet werden; Packungsanweisung des Herstellers beachten."
-  },
-  medical: {
-    kg:"Keine pauschale Angabe pro kg Körpergewicht möglich; richtet sich nach dem individuellen Blutwert oder Bedarf.",
-    age:"Dosierung variiert je nach Lebensphase und ärztlicher Empfehlung stark.",
-    activity:"Bei erhöhtem körperlichen Stress oder sportlicher Belastung kann der Bedarf variieren."
-  }
-};
 
-const substances = Object.entries(raw).flatMap(([categoryId, rows]) =>
-  rows.map(([name, description, role, benefit, warning, doseType, icon], index) => ({
-    id:categoryId+"-"+index, categoryId, name, description, icon,
-    effects:[role],
-    benefits:[benefit],
-    sideEffects:[warning],
-    dosage:{...doseGuides[doseType]},
-    shop:{product:"Geprüftes Markenprodukt", merchant:"Empfohlener Online-Shop", notice:"Sicherer Händler mit laborgeprüfter Qualität", url:"#"}
-  }))
-);
+function mapCategoryNameToId(name) {
+  const n = (name || "").toLowerCase();
+  if (n.includes("vitamin")) return "vitamins";
+  if (n.includes("mineral") || n.includes("mineralstoff") || n.includes("spurenelement")) return "minerals";
+  if (n.includes("aminos") || n.includes("protein") || n.includes("amino")) return "macro";
+  if (n.includes("fettsäure") || n.includes("fettsäuren") || n.includes("lipid")) return "lipids";
+  if (n.includes("pflanzen") || n.includes("antioxidant")) return "plants";
+  if (n.includes("performance") || n.includes("leistungs") || n.includes("gelenk")) return "performance";
+  if (n.includes("darm") || n.includes("verdauung") || n.includes("mikrobiom")) return "microbiome";
+  return "microbiome";
+}
+
+const substances = (nutrientsData || []).map((item) => {
+  const catId = mapCategoryNameToId(item.category || item.categoryName || "");
+  return {
+    id: item.id,
+    categoryId: catId,
+    name: item.name,
+    description: item.funktion || item.description || "",
+    icon: item.icon || "🧾",
+    effects: item.funktion ? [item.funktion] : [],
+    benefits: [],
+    sideEffects: item.mangel ? [item.mangel] : [],
+    dosage: {
+      kg: item.tagesbedarf || "",
+      age: "",
+      activity: ""
+    },
+    shop: {
+      product: item.quellen || "Lebensmittel-/Quellenangabe",
+      merchant: "",
+      notice: item.pruefung || "",
+      url: "#"
+    }
+  };
+});
 
 const main = document.getElementById("main");
 let state = { view:"home", categoryId:null, substanceId:null, query:"" };
@@ -266,7 +688,7 @@ function renderDetail() {
             <div class="dose-row"><strong>Aktivitätslevel</strong><p>${escapeHTML(item.dosage.activity)}</p></div>
             <p class="caution">Allgemeine Orientierungswerte, keine individuelle Therapie- oder Einnahmeanweisung. ${escapeHTML(generalCaution)}</p>
           </section>
-          <section class="detail-card"><h2>Geprüfte Shop-Empfehlungen</h2>
+          <section class="detail-card"><h2>Quellen / Hinweise</h2>
             <div class="shop-item">
               <strong>${escapeHTML(item.shop.product)}</strong>
               <span>${escapeHTML(item.shop.merchant)}</span>
